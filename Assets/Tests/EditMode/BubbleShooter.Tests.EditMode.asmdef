@@ -1,6 +1,8 @@
 {
     "name": "BubbleShooter.Tests.EditMode",
-    "references": [],
+    "references": [
+        "Assembly-CSharp"
+    ],
     "includePlatforms": [
         "Editor"
     ],
