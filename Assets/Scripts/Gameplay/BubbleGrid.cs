@@ -2,15 +2,15 @@ using UnityEngine;
 
 public class BubbleGrid : MonoBehaviour
 {
-    public const float BUBBLE_DIAMETER = 1.0f;
-    public const float ROW_HEIGHT = 0.866f;
-    public const int COLS_EVEN = 8;
+    public const float BUBBLE_DIAMETER = 1.0f; //버블 크기 
+    public const float ROW_HEIGHT = 0.866f; // 행 간격 
+    public const int COLS_EVEN = 8; // 짝행 8, 홀 행 7
     public const int COLS_ODD = 7;
-    public const int MAX_ROWS = 20;
+    public const int MAX_ROWS = 20; // 그드 최대 행 수 
 
     [SerializeField] private GameObject bubblePrefab;
-    [SerializeField] private float gridOriginX = -3.5f;
-    [SerializeField] private float gridOriginY = 7.0f;
+    [SerializeField] private float gridOriginX = -3.5f; // 그리드 시작점 월드 좌표 기준 
+    [SerializeField] private float gridOriginY = 7.0f; // 현재 그리드 상태 배열 버블
 
     public Bubble[,] Grid { get; private set; } = new Bubble[MAX_ROWS, COLS_EVEN];
 
