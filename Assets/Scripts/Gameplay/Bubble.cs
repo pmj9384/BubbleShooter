@@ -10,13 +10,13 @@ public class Bubble : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
 
-    private static readonly Color[] ColorMap = new Color[]
+    private static readonly UnityEngine.Color[] ColorMap = new UnityEngine.Color[]
     {
-        Color.red,
-        Color.blue,
-        Color.green,
-        Color.yellow,
-        new Color(0.6f, 0.2f, 0.8f), // Purple
+        UnityEngine.Color.red,
+        UnityEngine.Color.blue,
+        UnityEngine.Color.green,
+        UnityEngine.Color.yellow,
+        new UnityEngine.Color(0.6f, 0.2f, 0.8f), // Purple
     };
 
     private void Awake()
