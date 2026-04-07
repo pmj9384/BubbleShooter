@@ -35,8 +35,7 @@ public class GameManager : MonoSingleton<GameManager>
 
     public ObjectPoolManager ObjectPool { get; private set; }
     public GameUIManager UIManager { get; private set; }
-    // TODO: 게임 특화 매니저 여기에 추가
-    // public MyGameManager MyManager { get; private set; }
+    public BubbleGrid BubbleGrid { get; private set; }
 
     #endregion
 
@@ -105,8 +104,7 @@ public class GameManager : MonoSingleton<GameManager>
         List<GameObject> managerObjects = GameObject.FindGameObjectsWithTag("Manager").ToList();
 
         UIManager = RegisterManager<GameUIManager>(managerObjects);
-        // TODO: 게임 특화 매니저 등록
-        // MyManager = RegisterManager<MyGameManager>(managerObjects);
+        BubbleGrid = RegisterManager<BubbleGrid>(managerObjects);
 
         foreach (var manager in managers)
         {

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class BubbleGrid : MonoBehaviour
+public class BubbleGrid : InGameManager
 {
     public const float BUBBLE_DIAMETER = 1.0f;
     public const float ROW_HEIGHT = 0.866f;
@@ -17,9 +17,11 @@ public class BubbleGrid : MonoBehaviour
 
     private ObjectPool<GameObject> bubblePool;
 
-    private void Awake()
+    public override void Initialize()
     {
-        bubblePool = GameManager.Instance.ObjectPool.CreateObjectPool(
+        base.Initialize();
+
+        bubblePool = GameManager.ObjectPool.CreateObjectPool(
             bubblePrefab,
             () => Instantiate(bubblePrefab, transform),
             go => go.SetActive(true),
