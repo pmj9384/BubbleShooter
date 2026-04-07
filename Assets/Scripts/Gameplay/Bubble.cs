@@ -23,7 +23,7 @@ public class Bubble : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         var col = GetComponent<CircleCollider2D>();
-        col.radius = 0.48f;
+        col.radius = 0.19f; // 월드 기준 ~0.48 (scale 2.5 적용)
     }
 
     public void SetColor(BubbleColor color)
