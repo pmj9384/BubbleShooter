@@ -1,21 +1,31 @@
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class BubbleGrid : MonoBehaviour
 {
-    public const float BUBBLE_DIAMETER = 1.0f; //버블 크기 
-    public const float ROW_HEIGHT = 0.866f; // 행 간격 
-    public const int COLS_EVEN = 8; // 짝행 8, 홀 행 7
+    public const float BUBBLE_DIAMETER = 1.0f;
+    public const float ROW_HEIGHT = 0.866f;
+    public const int COLS_EVEN = 8;
     public const int COLS_ODD = 7;
-    public const int MAX_ROWS = 20; // 그드 최대 행 수 
+    public const int MAX_ROWS = 20;
 
     [SerializeField] private GameObject bubblePrefab;
-    [SerializeField] private float gridOriginX = -3.5f; // 그리드 시작점 월드 좌표 기준 
-    [SerializeField] private float gridOriginY = 7.0f; // 현재 그리드 상태 배열 버블
+    [SerializeField] private float gridOriginX = -3.5f;
+    [SerializeField] private float gridOriginY = 7.0f;
 
     public Bubble[,] Grid { get; private set; } = new Bubble[MAX_ROWS, COLS_EVEN];
 
+    private ObjectPool<GameObject> bubblePool;
+
     private void Awake()
     {
+        bubblePool = GameManager.Instance.ObjectPool.CreateObjectPool(
+            bubblePrefab,
+            () => Instantiate(bubblePrefab, transform),
+            go => go.SetActive(true),
+            go => go.SetActive(false)
+        );
+
         SpawnInitialRows(5);
     }
 
@@ -65,14 +75,13 @@ public class BubbleGrid : MonoBehaviour
         Grid[row, col] = bubble;
         bubble.transform.position = GetWorldPosition(row, col);
         bubble.transform.SetParent(transform);
-        bubble.tag = "Bubble";
     }
 
     public void RemoveBubble(int row, int col)
     {
         if (Grid[row, col] != null)
         {
-            Destroy(Grid[row, col].gameObject);
+            bubblePool.Release(Grid[row, col].gameObject);
             Grid[row, col] = null;
         }
     }
@@ -109,8 +118,9 @@ public class BubbleGrid : MonoBehaviour
         int maxCol = GetMaxCol(row);
         for (int c = 0; c <= maxCol && c < colors.Length; c++)
         {
-            var go = Instantiate(bubblePrefab, GetWorldPosition(row, c), Quaternion.identity, transform);
-            go.tag = "Bubble";
+            var go = bubblePool.Get();
+            go.transform.position = GetWorldPosition(row, c);
+            go.transform.SetParent(transform);
             var bubble = go.GetComponent<Bubble>();
             bubble.SetColor(colors[c]);
             bubble.Row = row;
