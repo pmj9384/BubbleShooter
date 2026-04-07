@@ -112,23 +112,66 @@ public class BubbleGrid : InGameManager
     public void SpawnInitialRows(int count)
     {
         for (int r = 0; r < count; r++)
-            SpawnRow(r, GenerateRandomRow(r));
+            SpawnRow(r);
     }
 
-    private void SpawnRow(int row, BubbleColor[] colors)
+    private void SpawnRow(int row, BubbleColor[] colors = null)
     {
         int maxCol = GetMaxCol(row);
-        for (int c = 0; c <= maxCol && c < colors.Length; c++)
+        for (int c = 0; c <= maxCol; c++)
         {
+            BubbleColor color = colors != null && c < colors.Length
+                ? colors[c]
+                : GetSafeRandomColor(row, c);
+
             var go = bubblePool.Get();
             go.transform.position = GetWorldPosition(row, c);
             go.transform.SetParent(transform);
             var bubble = go.GetComponent<Bubble>();
-            bubble.SetColor(colors[c]);
+            bubble.SetColor(color);
             bubble.Row = row;
             bubble.Col = c;
             Grid[row, c] = bubble;
         }
+    }
+
+    // 인접 버블과 3개 매칭이 생기지 않는 색상 선택
+    private BubbleColor GetSafeRandomColor(int row, int col)
+    {
+        var excluded = new System.Collections.Generic.HashSet<BubbleColor>();
+
+        foreach (var (dr, dc) in GetNeighborOffsets(row))
+        {
+            int nr = row + dr, nc = col + dc;
+            if (nr < 0 || nr >= MAX_ROWS || nc < 0 || nc >= COLS_EVEN) continue;
+            if (Grid[nr, nc] == null) continue;
+
+            BubbleColor neighborColor = Grid[nr, nc].Color;
+
+            // 이 이웃과 같은 색인 이웃이 하나 더 있으면 그 색 제외
+            foreach (var (dr2, dc2) in GetNeighborOffsets(nr))
+            {
+                int nr2 = nr + dr2, nc2 = nc + dc2;
+                if (nr2 == row && nc2 == col) continue;
+                if (nr2 < 0 || nr2 >= MAX_ROWS || nc2 < 0 || nc2 >= COLS_EVEN) continue;
+                if (Grid[nr2, nc2] != null && Grid[nr2, nc2].Color == neighborColor)
+                {
+                    excluded.Add(neighborColor);
+                    break;
+                }
+            }
+        }
+
+        // 제외 색 빼고 랜덤 선택
+        var allowed = new System.Collections.Generic.List<BubbleColor>();
+        for (int i = 0; i < (int)BubbleColor.Count; i++)
+            if (!excluded.Contains((BubbleColor)i))
+                allowed.Add((BubbleColor)i);
+
+        if (allowed.Count == 0)
+            return (BubbleColor)Random.Range(0, (int)BubbleColor.Count);
+
+        return allowed[Random.Range(0, allowed.Count)];
     }
 
     public BubbleColor[] GenerateRandomRow(int row)
