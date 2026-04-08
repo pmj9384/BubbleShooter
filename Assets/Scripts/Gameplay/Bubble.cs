@@ -10,6 +10,8 @@ public class Bubble : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
 
+    public static UnityEngine.Color[] GetColorMap() => ColorMap;
+
     private static readonly UnityEngine.Color[] ColorMap = new UnityEngine.Color[]
     {
         UnityEngine.Color.red,
