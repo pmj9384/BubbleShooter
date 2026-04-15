@@ -11,15 +11,18 @@ public class BubbleShooterController : MonoBehaviour
     private const float REFLECT_LINE_LENGTH = 20f;
 
     [SerializeField] private GameObject bubblePrefab;
-    [SerializeField] private SpriteRenderer landingIndicator;
     [SerializeField] private SpriteRenderer nextBubbleRenderer;
     [SerializeField] private SpriteRenderer currentBubbleRenderer;
+
+    [SerializeField] private int shotsPerRow = 5;
+    [SerializeField] private float gameOverY = -4f;
 
     private LineRenderer lineRenderer;
     private BubbleGrid bubbleGrid;
     private BubbleColor currentColor;
     private BubbleColor nextColor;
     private bool isDragging;
+    private int shotCount;
 
     public event Action OnFired;
 
@@ -41,7 +44,6 @@ public class BubbleShooterController : MonoBehaviour
         {
             isDragging = false;
             lineRenderer.enabled = false;
-            if (landingIndicator != null) landingIndicator.enabled = false;
 
             Vector2 dir = GetAimDirection();
             if (dir != Vector2.zero) Fire(dir);
@@ -55,7 +57,6 @@ public class BubbleShooterController : MonoBehaviour
             else
             {
                 lineRenderer.enabled = false;
-                if (landingIndicator != null) landingIndicator.enabled = false;
             }
         }
     }
@@ -99,18 +100,6 @@ public class BubbleShooterController : MonoBehaviour
         lineRenderer.SetPosition(0, p0);
         lineRenderer.SetPosition(1, p1);
         lineRenderer.SetPosition(2, p2);
-
-        UpdateLandingIndicator(p2);
-    }
-
-    private void UpdateLandingIndicator(Vector2 endPoint)
-    {
-        if (landingIndicator == null || bubbleGrid == null) return;
-
-        var (row, col) = bubbleGrid.FindNearestEmpty(endPoint);
-        Vector2 worldPos = bubbleGrid.GetWorldPosition(row, col);
-        landingIndicator.transform.position = worldPos;
-        landingIndicator.enabled = true;
     }
 
     private void Fire(Vector2 dir)
@@ -123,8 +112,11 @@ public class BubbleShooterController : MonoBehaviour
         var col = go.GetComponent<CircleCollider2D>();
         col.isTrigger = true;
 
+        shotCount++;
+        bool shouldAddRow = shotCount % shotsPerRow == 0;
+
         var proj = go.AddComponent<BubbleProjectile>();
-        proj.Launch(currentColor, dir, SHOOT_SPEED, LEFT_WALL, RIGHT_WALL, bubbleGrid);
+        proj.Launch(currentColor, dir, SHOOT_SPEED, LEFT_WALL, RIGHT_WALL, bubbleGrid, shouldAddRow ? (Action)OnProjectileLanded : null);
 
         currentColor = nextColor;
         nextColor = RandomColor();
@@ -140,6 +132,13 @@ public class BubbleShooterController : MonoBehaviour
             currentBubbleRenderer.color = colorMap[(int)currentColor];
         if (nextBubbleRenderer != null)
             nextBubbleRenderer.color = colorMap[(int)nextColor];
+    }
+
+    private void OnProjectileLanded()
+    {
+        bubbleGrid.AddRowAtTop(bubbleGrid.GenerateRandomRow(0));
+        if (bubbleGrid.HasBubbleBelowY(gameOverY))
+            GameManager.Instance.SetGameState(GameManager.GameState.GameOver);
     }
 
     private BubbleColor RandomColor() =>
