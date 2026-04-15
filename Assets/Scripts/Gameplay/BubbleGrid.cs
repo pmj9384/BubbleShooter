@@ -16,6 +16,7 @@ public class BubbleGrid : InGameManager
     public Bubble[,] Grid { get; private set; } = new Bubble[MAX_ROWS, COLS_EVEN];
 
     private ObjectPool<GameObject> bubblePool;
+    private int rowOffset;
 
     public override void Initialize()
     {
@@ -31,10 +32,12 @@ public class BubbleGrid : InGameManager
         SpawnInitialRows(5);
     }
 
+    private bool IsOffsetRow(int row) => (row + rowOffset) % 2 == 1;
+
     public Vector2 GetWorldPosition(int row, int col)
     {
         float x = gridOriginX + col * BUBBLE_DIAMETER;
-        if (row % 2 == 1) x += BUBBLE_DIAMETER * 0.5f;
+        if (IsOffsetRow(row)) x += BUBBLE_DIAMETER * 0.5f;
         float y = gridOriginY - row * ROW_HEIGHT;
         return new Vector2(x, y);
     }
@@ -44,7 +47,7 @@ public class BubbleGrid : InGameManager
         int row = Mathf.RoundToInt((gridOriginY - worldPos.y) / ROW_HEIGHT);
         row = Mathf.Clamp(row, 0, MAX_ROWS - 1);
 
-        float offsetX = (row % 2 == 1) ? BUBBLE_DIAMETER * 0.5f : 0f;
+        float offsetX = IsOffsetRow(row) ? BUBBLE_DIAMETER * 0.5f : 0f;
         int col = Mathf.RoundToInt((worldPos.x - gridOriginX - offsetX) / BUBBLE_DIAMETER);
         col = Mathf.Clamp(col, 0, GetMaxCol(row));
 
@@ -53,7 +56,7 @@ public class BubbleGrid : InGameManager
 
     public bool IsOccupied(int row, int col) => Grid[row, col] != null;
 
-    public int GetMaxCol(int row) => (row % 2 == 0) ? COLS_EVEN - 1 : COLS_ODD - 1;
+    public int GetMaxCol(int row) => IsOffsetRow(row) ? COLS_ODD - 1 : COLS_EVEN - 1;
 
     public (int row, int col) FindNearestEmpty(Vector2 worldPos)
     {
@@ -90,6 +93,8 @@ public class BubbleGrid : InGameManager
 
     public void AddRowAtTop(BubbleColor[] colors)
     {
+        rowOffset = (rowOffset + 1) % 2;
+
         for (int r = MAX_ROWS - 1; r > 0; r--)
         {
             for (int c = 0; c < COLS_EVEN; c++)
@@ -183,9 +188,9 @@ public class BubbleGrid : InGameManager
         return colors;
     }
 
-    public static (int dr, int dc)[] GetNeighborOffsets(int row)
+    public (int dr, int dc)[] GetNeighborOffsets(int row)
     {
-        if (row % 2 == 0)
+        if (!IsOffsetRow(row))
             return new[] { (0, -1), (0, 1), (-1, -1), (-1, 0), (1, -1), (1, 0) };
         else
             return new[] { (0, -1), (0, 1), (-1, 0), (-1, 1), (1, 0), (1, 1) };

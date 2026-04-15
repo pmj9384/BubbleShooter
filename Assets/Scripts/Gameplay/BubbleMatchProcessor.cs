@@ -6,8 +6,9 @@ public static class BubbleMatchProcessor
 
     // 착지한 버블 (row, col)에서 같은 색 연결 BFS
     // 3개 미만이면 빈 리스트 반환
-    public static List<(int row, int col)> FindMatches(Bubble[,] grid, int startRow, int startCol)
+    public static List<(int row, int col)> FindMatches(BubbleGrid bubbleGrid, int startRow, int startCol)
     {
+        var grid = bubbleGrid.Grid;
         var target = grid[startRow, startCol];
         if (target == null) return new List<(int, int)>();
 
@@ -23,7 +24,7 @@ public static class BubbleMatchProcessor
             var (r, c) = queue.Dequeue();
             result.Add((r, c));
 
-            foreach (var (dr, dc) in BubbleGrid.GetNeighborOffsets(r))
+            foreach (var (dr, dc) in bubbleGrid.GetNeighborOffsets(r))
             {
                 int nr = r + dr, nc = c + dc;
                 if (nr < 0 || nr >= BubbleGrid.MAX_ROWS || nc < 0 || nc >= BubbleGrid.COLS_EVEN) continue;
@@ -40,8 +41,9 @@ public static class BubbleMatchProcessor
     }
 
     // 0행과 연결되지 않은 버블 전체 탐색
-    public static List<(int row, int col)> FindFloating(Bubble[,] grid)
+    public static List<(int row, int col)> FindFloating(BubbleGrid bubbleGrid)
     {
+        var grid = bubbleGrid.Grid;
         var connected = new HashSet<(int, int)>();
         var queue = new Queue<(int, int)>();
 
@@ -58,7 +60,7 @@ public static class BubbleMatchProcessor
         while (queue.Count > 0)
         {
             var (r, c) = queue.Dequeue();
-            foreach (var (dr, dc) in BubbleGrid.GetNeighborOffsets(r))
+            foreach (var (dr, dc) in bubbleGrid.GetNeighborOffsets(r))
             {
                 int nr = r + dr, nc = c + dc;
                 if (nr < 0 || nr >= BubbleGrid.MAX_ROWS || nc < 0 || nc >= BubbleGrid.COLS_EVEN) continue;

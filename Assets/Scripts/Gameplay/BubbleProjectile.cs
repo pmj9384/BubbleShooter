@@ -76,10 +76,10 @@ public class BubbleProjectile : MonoBehaviour
         {
             grid.PlaceBubble(bubble, row, col);
 
-            var matches = BubbleMatchProcessor.FindMatches(grid.Grid, row, col);
+            var matches = BubbleMatchProcessor.FindMatches(grid, row, col);
             foreach (var (r, c) in matches) grid.RemoveBubble(r, c);
 
-            var floating = BubbleMatchProcessor.FindFloating(grid.Grid);
+            var floating = BubbleMatchProcessor.FindFloating(grid);
             foreach (var (r, c) in floating) grid.RemoveBubble(r, c);
 
             onLanded?.Invoke();
