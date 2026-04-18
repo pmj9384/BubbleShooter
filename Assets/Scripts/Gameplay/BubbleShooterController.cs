@@ -42,6 +42,15 @@ public class BubbleShooterController : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            var gm = GameManager.Instance;
+            if (gm.CurrentState == GameManager.GameState.GamePlay)
+                gm.SetGameState(GameManager.GameState.GameStop);
+            else if (gm.CurrentState == GameManager.GameState.GameStop)
+                gm.SetGameState(GameManager.GameState.GamePlay);
+        }
+
         if (Input.GetMouseButtonDown(0)) isDragging = true;
 
         if (Input.GetMouseButtonUp(0) && isDragging)

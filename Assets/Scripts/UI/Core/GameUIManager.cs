@@ -40,6 +40,17 @@ public class GameUIManager : InGameManager
             ShowUIElement(UIElementEnums.HUD);
         });
 
+        GameManager.AddGameStateEnterAction(GameManager.GameState.GameStop, () =>
+        {
+            ShowUIElement(UIElementEnums.PausePanel);
+        });
+
+        GameManager.AddGameStateExitAction(GameManager.GameState.GameStop, () =>
+        {
+            HideUIElement(UIElementEnums.PausePanel);
+            HideUIElement(UIElementEnums.SettingsPanel);
+        });
+
         GameManager.AddGameStateEnterAction(GameManager.GameState.GameOver, () =>
         {
             HideUIElement(UIElementEnums.HUD);

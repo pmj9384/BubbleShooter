@@ -34,6 +34,11 @@ public class GameUIManagerEditor : Editor
             EditorUtility.SetDirty(uiManager);
         }
 
+        if (GUILayout.Button("Apply Kostar Font to All TMP"))
+        {
+            FontApplier.ApplyKostarFont();
+        }
+
         base.OnInspectorGUI();
     }
 
