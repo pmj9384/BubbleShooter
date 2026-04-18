@@ -30,9 +30,20 @@ public class GameUIManager : InGameManager
         //     StartCoroutine(ShowDelayed(UIElementEnums.GameOverPanel, 1.5f));
         // });
 
+        GameManager.AddGameStateEnterAction(GameManager.GameState.GameReady, () =>
+        {
+            ShowUIElement(UIElementEnums.HUD);
+        });
+
+        GameManager.AddGameStateEnterAction(GameManager.GameState.GamePlay, () =>
+        {
+            ShowUIElement(UIElementEnums.HUD);
+        });
+
         GameManager.AddGameStateEnterAction(GameManager.GameState.GameOver, () =>
         {
-            ShowUIElement(UIElementEnums.GameOverText);
+            HideUIElement(UIElementEnums.HUD);
+            ShowUIElement(UIElementEnums.GameOverPanel);
         });
     }
 

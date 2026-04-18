@@ -32,7 +32,6 @@ public enum AnchorPresets
     None
 }
 
-[ExecuteInEditMode]
 [RequireComponent(typeof(RectTransform))]
 public class SafeAreaCanvas : MonoBehaviour
 {
@@ -43,7 +42,9 @@ public class SafeAreaCanvas : MonoBehaviour
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
+#if !UNITY_EDITOR
         ApplySafeAreaCanvasAnchor();
+#endif
     }
 
     public void ApplySafeAreaCanvasAnchor()

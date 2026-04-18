@@ -1,4 +1,5 @@
 public enum UIElementEnums
 {
-	GameOverText,
+	GameOverPanel,
+	HUD,
 }

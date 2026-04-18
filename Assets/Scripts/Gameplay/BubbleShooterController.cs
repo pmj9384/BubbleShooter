@@ -26,6 +26,10 @@ public class BubbleShooterController : MonoBehaviour
 
     public event Action OnFired;
 
+    public int ShotCount => shotCount;
+    public int ShotsPerRow => shotsPerRow;
+    public int ShotsUntilNextRow => shotsPerRow - (shotCount % shotsPerRow);
+
     private void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();

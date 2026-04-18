@@ -1,6 +1,15 @@
+using UnityEngine;
+using UnityEngine.UI;
+
 public class GameOverUIElement : UIElement
 {
-    public override void Initialize() => gameObject.SetActive(false);
+    [SerializeField] private Button restartButton;
+
+    public override void Initialize()
+    {
+        gameObject.SetActive(false);
+        restartButton.onClick.AddListener(() => gameManager.RestartGame());
+    }
 
     public override void Show() => gameObject.SetActive(true);
 
