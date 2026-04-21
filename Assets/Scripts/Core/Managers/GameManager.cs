@@ -156,7 +156,7 @@ public class GameManager : MonoSingleton<GameManager>
     public void GoToTitle()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene("LobbyScene");
     }
 
     public void AddGameStateEnterAction(GameState state, Action action) => gameStateEnterAction[(int)state] += action;
