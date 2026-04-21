@@ -23,6 +23,7 @@ public class BubbleShooterController : MonoBehaviour
     private BubbleColor currentColor;
     private readonly List<BubbleColor> upcomingColors = new();
     private bool isDragging;
+    private bool canShoot = true;
     private int shotCount;
 
     public event Action OnFired;
@@ -58,6 +59,8 @@ public class BubbleShooterController : MonoBehaviour
             else if (gm.CurrentState == GameManager.GameState.GameStop)
                 gm.SetGameState(GameManager.GameState.GamePlay);
         }
+
+        if (!canShoot) return;
 
         if (Input.GetMouseButtonDown(0)) isDragging = true;
 
@@ -122,6 +125,8 @@ public class BubbleShooterController : MonoBehaviour
 
     private void Fire(Vector2 dir)
     {
+        canShoot = false;
+
         GameObject go = Instantiate(bubblePrefab, transform.position, Quaternion.identity);
 
         var bubble = go.GetComponent<Bubble>();
@@ -133,8 +138,14 @@ public class BubbleShooterController : MonoBehaviour
         shotCount++;
         bool shouldAddRow = shotCount % shotsPerRow == 0;
 
+        Action onLanded = () =>
+        {
+            if (shouldAddRow) OnProjectileLanded();
+            canShoot = true;
+        };
+
         var proj = go.AddComponent<BubbleProjectile>();
-        proj.Launch(currentColor, dir, SHOOT_SPEED, LEFT_WALL, RIGHT_WALL, bubbleGrid, shouldAddRow ? (Action)OnProjectileLanded : null);
+        proj.Launch(currentColor, dir, SHOOT_SPEED, LEFT_WALL, RIGHT_WALL, bubbleGrid, onLanded);
 
         currentColor = upcomingColors[0];
         upcomingColors.RemoveAt(0);
