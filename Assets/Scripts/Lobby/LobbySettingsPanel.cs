@@ -9,7 +9,6 @@ public class LobbySettingsPanel : MonoBehaviour
 
     private void Awake()
     {
-        gameObject.SetActive(false);
         closeButton.onClick.AddListener(Hide);
         bgmSlider.onValueChanged.AddListener(v => SoundManager.Instance.SetBgmVolume(v));
         sfxSlider.onValueChanged.AddListener(v => SoundManager.Instance.SetSfxVolume(v));
