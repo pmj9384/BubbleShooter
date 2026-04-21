@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(LineRenderer))]
@@ -9,18 +10,18 @@ public class BubbleShooterController : MonoBehaviour
     private const float SHOOT_SPEED = 12f;
     private const float MIN_ANGLE_FROM_HORIZONTAL = 10f;
     private const float REFLECT_LINE_LENGTH = 20f;
+    private const int UPCOMING_COUNT = 6; // [0]=next, [1~5]=preview
 
     [SerializeField] private GameObject bubblePrefab;
-    [SerializeField] private SpriteRenderer nextBubbleRenderer;
     [SerializeField] private SpriteRenderer currentBubbleRenderer;
 
     [SerializeField] private int shotsPerRow = 5;
-    [SerializeField] private float gameOverY = -4f;
+    [SerializeField] private float gameOverY = -5f;
 
     private LineRenderer lineRenderer;
     private BubbleGrid bubbleGrid;
     private BubbleColor currentColor;
-    private BubbleColor nextColor;
+    private readonly List<BubbleColor> upcomingColors = new();
     private bool isDragging;
     private int shotCount;
 
@@ -29,15 +30,22 @@ public class BubbleShooterController : MonoBehaviour
     public int ShotCount => shotCount;
     public int ShotsPerRow => shotsPerRow;
     public int ShotsUntilNextRow => shotsPerRow - (shotCount % shotsPerRow);
+    public BubbleColor CurrentColor => currentColor;
+    public BubbleColor NextColor => upcomingColors[0];
+    public IReadOnlyList<BubbleColor> UpcomingColors => upcomingColors;
+
+    private void Awake()
+    {
+        for (int i = 0; i < UPCOMING_COUNT; i++)
+            upcomingColors.Add(RandomColor());
+        currentColor = RandomColor();
+    }
 
     private void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
         bubbleGrid = GameManager.Instance.BubbleGrid;
-
-        currentColor = RandomColor();
-        nextColor = RandomColor();
-        RefreshDisplay();
+        RefreshShooterDisplay();
     }
 
     private void Update()
@@ -67,10 +75,7 @@ public class BubbleShooterController : MonoBehaviour
         {
             Vector2 dir = GetAimDirection();
             if (dir != Vector2.zero) UpdateAimLine(dir);
-            else
-            {
-                lineRenderer.enabled = false;
-            }
+            else lineRenderer.enabled = false;
         }
     }
 
@@ -131,20 +136,18 @@ public class BubbleShooterController : MonoBehaviour
         var proj = go.AddComponent<BubbleProjectile>();
         proj.Launch(currentColor, dir, SHOOT_SPEED, LEFT_WALL, RIGHT_WALL, bubbleGrid, shouldAddRow ? (Action)OnProjectileLanded : null);
 
-        currentColor = nextColor;
-        nextColor = RandomColor();
-        RefreshDisplay();
+        currentColor = upcomingColors[0];
+        upcomingColors.RemoveAt(0);
+        upcomingColors.Add(RandomColor());
+        RefreshShooterDisplay();
 
         OnFired?.Invoke();
     }
 
-    private void RefreshDisplay()
+    private void RefreshShooterDisplay()
     {
-        var colorMap = Bubble.GetColorMap();
         if (currentBubbleRenderer != null)
-            currentBubbleRenderer.color = colorMap[(int)currentColor];
-        if (nextBubbleRenderer != null)
-            nextBubbleRenderer.color = colorMap[(int)nextColor];
+            currentBubbleRenderer.color = Bubble.GetColorMap()[(int)currentColor];
     }
 
     private void OnProjectileLanded()
