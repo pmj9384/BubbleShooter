@@ -1,21 +1,18 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PausePanelUIElement : UIElement
+public class PausePanel : UIElement
 {
     [SerializeField] private Button resumeButton;
     [SerializeField] private Button settingsButton;
     [SerializeField] private Button homeButton;
 
-    private GameUIManager uiManager;
-
     public override void Initialize()
     {
         gameObject.SetActive(false);
-        uiManager = gameUIManager;
-        resumeButton.onClick.AddListener(() => gameManager.SetGameState(GameManager.GameState.GamePlay));
-        settingsButton.onClick.AddListener(() => uiManager.ShowUIElement(UIElementEnums.SettingsPanel));
-        homeButton.onClick.AddListener(() => gameManager.GoToTitle());
+        resumeButton.onClick.AddListener(() => gameUIManager.ResumeGame());
+        settingsButton.onClick.AddListener(() => gameUIManager.ShowUIElement(UIElementEnums.SettingsPanel));
+        homeButton.onClick.AddListener(() => gameUIManager.GoToTitle());
     }
 
     public override void Show() => gameObject.SetActive(true);

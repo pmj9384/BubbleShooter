@@ -76,6 +76,11 @@ public class GameUIManager : InGameManager
         uiElements[(int)type].Hide();
     }
 
+    public void ResumeGame()  => GameManager.SetGameState(GameManager.GameState.GamePlay);
+    public void PauseGame()   => GameManager.SetGameState(GameManager.GameState.GameStop);
+    public void GoToTitle()   => GameManager.GoToTitle();
+    public void RestartGame() => GameManager.RestartGame();
+
     private IEnumerator ShowDelayed(UIElementEnums type, float delay)
     {
         yield return new WaitForSeconds(delay);

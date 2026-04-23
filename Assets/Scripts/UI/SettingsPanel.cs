@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SettingsPanelUIElement : UIElement
+public class SettingsPanel : UIElement
 {
     [SerializeField] private Slider bgmSlider;
     [SerializeField] private Slider sfxSlider;

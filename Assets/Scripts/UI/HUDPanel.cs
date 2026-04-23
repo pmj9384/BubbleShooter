@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HUDUIElement : UIElement
+public class HUDPanel : UIElement
 {
     [Header("TopBar")]
     [SerializeField] private GameObject topBar;
@@ -22,8 +22,7 @@ public class HUDUIElement : UIElement
         if (shooter != null)
             shooter.OnFired += UpdateDisplay;
 
-        pauseButton.onClick.AddListener(() =>
-            gameManager.SetGameState(GameManager.GameState.GameStop));
+        pauseButton.onClick.AddListener(() => gameUIManager.PauseGame());
     }
 
     public override void Show()

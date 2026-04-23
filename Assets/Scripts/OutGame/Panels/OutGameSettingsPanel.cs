@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LobbySettingsPanel : MonoBehaviour
+public class OutGameSettingsPanel : BasePanel
 {
     [SerializeField] private Slider bgmSlider;
     [SerializeField] private Slider sfxSlider;
@@ -14,12 +14,10 @@ public class LobbySettingsPanel : MonoBehaviour
         sfxSlider.onValueChanged.AddListener(v => SoundManager.Instance.SetSfxVolume(v));
     }
 
-    public void Show()
+    public override void Show()
     {
         bgmSlider.SetValueWithoutNotify(SoundManager.Instance.bgmVolume);
         sfxSlider.SetValueWithoutNotify(SoundManager.Instance.sfxVolume);
-        gameObject.SetActive(true);
+        base.Show();
     }
-
-    public void Hide() => gameObject.SetActive(false);
 }
