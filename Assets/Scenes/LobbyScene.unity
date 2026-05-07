@@ -486,6 +486,7 @@ RectTransform:
   - {fileID: 111191569}
   - {fileID: 306828802}
   - {fileID: 946586560}
+  - {fileID: 651468425}
   m_Father: {fileID: 1391221744}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -885,6 +886,7 @@ GameObject:
   m_Component:
   - component: {fileID: 651468425}
   - component: {fileID: 651468426}
+  - component: {fileID: 651468427}
   m_Layer: 0
   m_Name: BottomBar
   m_TagString: Untagged
@@ -907,12 +909,12 @@ RectTransform:
   - {fileID: 1207265034}
   - {fileID: 1841721644}
   - {fileID: 724868170}
-  m_Father: {fileID: 1025257803}
+  m_Father: {fileID: 379942613}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: -960.24}
-  m_SizeDelta: {x: 1079.7301, y: 150}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 150}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &651468426
 MonoBehaviour:
@@ -926,6 +928,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a1d8093f3a024698b78c92d39b922d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  homeButton: {fileID: 1841721645}
+  shopButton: {fileID: 1207265035}
+  skinButton: {fileID: 724868171}
+--- !u!114 &651468427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 651468424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f348b092f6ebb4715b9fc31ade653f00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiManager: {fileID: 1727085812}
   homeButton: {fileID: 1841721645}
   shopButton: {fileID: 1207265035}
   skinButton: {fileID: 724868171}
@@ -1445,7 +1463,6 @@ Transform:
   m_Children:
   - {fileID: 191624978}
   - {fileID: 2017852497}
-  - {fileID: 651468425}
   - {fileID: 912163151}
   m_Father: {fileID: 379942613}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
