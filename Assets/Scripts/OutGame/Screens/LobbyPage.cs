@@ -1,0 +1,19 @@
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
+public class LobbyPage : UIPage
+{
+    [SerializeField] private Button playButton;
+    [SerializeField] private Button optionsButton;
+
+    public override void Open()
+    {
+        base.Open();
+        playButton.onClick.RemoveAllListeners();
+        optionsButton.onClick.RemoveAllListeners();
+
+        playButton.onClick.AddListener(() => SceneManager.LoadScene("SampleScene"));
+        optionsButton.onClick.AddListener(() => uiManager.ShowPopup<OutGameSettingsPanel>());
+    }
+}

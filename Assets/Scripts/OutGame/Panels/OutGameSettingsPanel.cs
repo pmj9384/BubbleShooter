@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class OutGameSettingsPanel : BasePanel
+public class OutGameSettingsPanel : UIPopup
 {
     [SerializeField] private Slider bgmSlider;
     [SerializeField] private Slider sfxSlider;
