@@ -10,8 +10,8 @@ public class BottomMenuPanel : MonoBehaviour
 
     private void Awake()
     {
-        homeButton.onClick.AddListener(() => uiManager.OpenPage<LobbyPage>());
-        shopButton.onClick.AddListener(() => uiManager.OpenPage<ShopPage>());
-        skinButton.onClick.AddListener(() => uiManager.OpenPage<SkinPage>());
+        homeButton.onClick.AddListener(() => uiManager.OpenScreen<LobbyScreen>());
+        shopButton.onClick.AddListener(() => uiManager.OpenScreen<ShopScreen>());
+        skinButton.onClick.AddListener(() => uiManager.OpenScreen<SkinScreen>());
     }
 }

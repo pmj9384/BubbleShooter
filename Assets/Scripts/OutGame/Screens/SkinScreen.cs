@@ -1,4 +1,4 @@
-public class ShopPage : UIPage
+public class SkinScreen : UIScreen
 {
     public override void Open()
     {

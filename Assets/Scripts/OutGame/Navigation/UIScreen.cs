@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class UIPage : MonoBehaviour
+public abstract class UIScreen : MonoBehaviour
 {
     protected IOutGameUIManager uiManager;
 

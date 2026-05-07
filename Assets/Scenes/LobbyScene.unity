@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 111191569}
   - component: {fileID: 111191570}
   - component: {fileID: 111191571}
+  - component: {fileID: 111191572}
   m_Layer: 0
   m_Name: ShopScreen
   m_TagString: Untagged
@@ -137,14 +138,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!4 &111191569
-Transform:
+--- !u!224 &111191569
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 111191568}
-  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -152,6 +152,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 379942613}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &111191570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,6 +181,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f70cf642a8f334037a199a1fbb5915fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!223 &111191572
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111191568}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
 --- !u!1 &191624977
 GameObject:
   m_ObjectHideFlags: 0
@@ -408,6 +436,7 @@ GameObject:
   - component: {fileID: 306828802}
   - component: {fileID: 306828803}
   - component: {fileID: 306828804}
+  - component: {fileID: 306828805}
   m_Layer: 0
   m_Name: SkinScreen
   m_TagString: Untagged
@@ -415,14 +444,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!4 &306828802
-Transform:
+--- !u!224 &306828802
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 306828801}
-  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -430,6 +458,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 379942613}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &306828803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -454,6 +487,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75b468c5fb3bd4ff69b2010d2245e6bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!223 &306828805
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 306828801}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
 --- !u!1 &379942612
 GameObject:
   m_ObjectHideFlags: 0
@@ -1441,6 +1497,7 @@ GameObject:
   - component: {fileID: 1025257803}
   - component: {fileID: 1025257804}
   - component: {fileID: 1025257805}
+  - component: {fileID: 1025257806}
   m_Layer: 0
   m_Name: LobbyScreen
   m_TagString: Untagged
@@ -1448,14 +1505,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1025257803
-Transform:
+--- !u!224 &1025257803
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1025257802}
-  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -1466,6 +1522,11 @@ Transform:
   - {fileID: 912163151}
   m_Father: {fileID: 379942613}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1025257804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1492,6 +1553,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playButton: {fileID: 912163152}
   optionsButton: {fileID: 1792377411}
+--- !u!223 &1025257806
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1025257802}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
 --- !u!1 &1034243801
 GameObject:
   m_ObjectHideFlags: 0
@@ -2693,7 +2777,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5f56bad9cd02408fa436631a1da0c82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pages:
+  screens:
   - {fileID: 1025257805}
   - {fileID: 111191571}
   - {fileID: 306828804}

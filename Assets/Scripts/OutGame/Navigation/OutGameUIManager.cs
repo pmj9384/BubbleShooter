@@ -1,34 +1,34 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class OutGameUIManager : MonoBehaviour, IOutGameUIManager
 {
-    [SerializeField] private UIPage[] pages;
+    [FormerlySerializedAs("pages")]
+    [SerializeField] private UIScreen[] screens;
     [SerializeField] private UIPopup[] popups;
 
-    private UIPage currentPage;
+    private UIScreen currentScreen;
 
     public void Initialize()
     {
-        foreach (var page in pages)
-            page.SetOutGameUIManager(this);
+        foreach (var screen in screens)
+            screen.SetOutGameUIManager(this);
         foreach (var popup in popups)
             popup.SetOutGameUIManager(this);
-
-        OpenPage<LobbyPage>();
     }
 
-    public void OpenPage<T>() where T : UIPage
+    public void OpenScreen<T>() where T : UIScreen
     {
-        foreach (var page in pages)
+        foreach (var screen in screens)
         {
-            if (page is T)
+            if (screen is T)
             {
-                currentPage = page;
-                page.Open();
+                currentScreen = screen;
+                screen.Open();
             }
             else
             {
-                page.Close();
+                screen.Close();
             }
         }
     }

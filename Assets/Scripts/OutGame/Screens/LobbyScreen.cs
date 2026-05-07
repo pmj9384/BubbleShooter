@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class LobbyPage : UIPage
+public class LobbyScreen : UIScreen
 {
     [SerializeField] private Button playButton;
     [SerializeField] private Button optionsButton;
