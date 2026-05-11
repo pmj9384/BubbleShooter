@@ -21,6 +21,8 @@ public class OutGameManager : MonoBehaviour
 
         foreach (var manager in managers)
             manager.Initialize();
+
+        UIManager.OpenScreen<LobbyScreen>();
     }
 
     private void OnDestroy()

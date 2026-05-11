@@ -1,4 +1,4 @@
-public interface IOutGameUIManager
+public interface IUIManager
 {
     void OpenScreen<T>() where T : UIScreen;
     void ShowPopup<T>() where T : UIPopup;

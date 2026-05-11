@@ -2,9 +2,9 @@ using UnityEngine;
 
 public abstract class UIPopup : MonoBehaviour
 {
-    protected IOutGameUIManager uiManager;
+    protected IUIManager uiManager;
 
-    public void SetOutGameUIManager(IOutGameUIManager uiManager)
+    public void SetUIManager(IUIManager uiManager)
     {
         this.uiManager = uiManager;
     }
