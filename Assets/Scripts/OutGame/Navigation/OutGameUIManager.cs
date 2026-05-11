@@ -1,13 +1,19 @@
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class OutGameUIManager : MonoBehaviour, IOutGameUIManager
+public class OutGameUIManager : MonoBehaviour, IOutGameUIManager, IManager
 {
     [FormerlySerializedAs("pages")]
     [SerializeField] private UIScreen[] screens;
     [SerializeField] private UIPopup[] popups;
 
+    private OutGameManager outGameManager;
     private UIScreen currentScreen;
+
+    public void SetOutGameManager(OutGameManager outGameManager)
+    {
+        this.outGameManager = outGameManager;
+    }
 
     public void Initialize()
     {
@@ -16,6 +22,8 @@ public class OutGameUIManager : MonoBehaviour, IOutGameUIManager
         foreach (var popup in popups)
             popup.SetOutGameUIManager(this);
     }
+
+    public void Clear() { }
 
     public void OpenScreen<T>() where T : UIScreen
     {
