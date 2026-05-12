@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerAccountData : ISaveLoad
@@ -27,7 +28,33 @@ public class PlayerAccountData : ISaveLoad
         set { sfxVolume = Mathf.Clamp(value, 0.0001f, 1f); }
     }
 
-    // TODO: 게임 특화 데이터 추가
+    public event Action<int> OnCoinsChanged;
+    public event Action<int> OnEnergyChanged;
+
+    private int coins;
+    public int Coins
+    {
+        get => coins;
+        private set { coins = value; OnCoinsChanged?.Invoke(coins); }
+    }
+
+    public int MaxEnergy { get; } = 5;
+
+    private int energy;
+    public int Energy
+    {
+        get => energy;
+        private set { energy = Mathf.Clamp(value, 0, MaxEnergy); OnEnergyChanged?.Invoke(energy); }
+    }
+
+    public void AddCoins(int amount) => Coins += amount;
+
+    public bool TryConsumeEnergy()
+    {
+        if (Energy <= 0) return false;
+        Energy--;
+        return true;
+    }
 
     public PlayerAccountData()
     {
@@ -40,6 +67,8 @@ public class PlayerAccountData : ISaveLoad
         saveData.bgmVolume = SoundManager.Instance.bgmVolume;
         saveData.sfxVolume = SoundManager.Instance.sfxVolume;
         saveData.bestScore = BestScore;
+        saveData.coins = Coins;
+        saveData.energy = Energy;
     }
 
     public void Load()
@@ -47,6 +76,8 @@ public class PlayerAccountData : ISaveLoad
         BgmVolume = 1f;
         SfxVolume = 1f;
         BestScore = 0;
+        Coins = 0;
+        Energy = MaxEnergy;
     }
 
     public void Load(PlayerAccountDataSave saveData)
@@ -55,5 +86,7 @@ public class PlayerAccountData : ISaveLoad
         BgmVolume = saveData.bgmVolume;
         SfxVolume = saveData.sfxVolume;
         BestScore = saveData.bestScore;
+        Coins = saveData.coins;
+        Energy = saveData.energy;
     }
 }
