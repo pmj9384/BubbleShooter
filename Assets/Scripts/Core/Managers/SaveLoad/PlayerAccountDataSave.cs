@@ -7,5 +7,5 @@ public class PlayerAccountDataSave
     public float sfxVolume;
     public int bestScore;
     public int coins;
-    public int energy;
+    public int stamina;
 }

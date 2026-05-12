@@ -29,7 +29,7 @@ public class PlayerAccountData : ISaveLoad
     }
 
     public event Action<int> OnCoinsChanged;
-    public event Action<int> OnEnergyChanged;
+    public event Action<int> OnStaminaChanged;
 
     private int coins;
     public int Coins
@@ -38,13 +38,13 @@ public class PlayerAccountData : ISaveLoad
         private set { coins = value; OnCoinsChanged?.Invoke(coins); }
     }
 
-    public int MaxEnergy { get; } = 5;
+    public int MaxStamina { get; } = 5;
 
-    private int energy;
-    public int Energy
+    private int stamina;
+    public int Stamina
     {
-        get => energy;
-        private set { energy = Mathf.Clamp(value, 0, MaxEnergy); OnEnergyChanged?.Invoke(energy); }
+        get => stamina;
+        private set { stamina = Mathf.Clamp(value, 0, MaxStamina); OnStaminaChanged?.Invoke(stamina); }
     }
 
     public void AddCoins(int amount)
@@ -53,10 +53,10 @@ public class PlayerAccountData : ISaveLoad
         Coins += amount;
     }
 
-    public bool TryConsumeEnergy()
+    public bool TryConsumeStamina()
     {
-        if (Energy <= 0) return false;
-        Energy--;
+        if (Stamina <= 0) return false;
+        Stamina--;
         return true;
     }
 
@@ -72,7 +72,7 @@ public class PlayerAccountData : ISaveLoad
         saveData.sfxVolume = SoundManager.Instance.sfxVolume;
         saveData.bestScore = BestScore;
         saveData.coins = Coins;
-        saveData.energy = Energy;
+        saveData.stamina = Stamina;
     }
 
     public void Load()
@@ -81,7 +81,7 @@ public class PlayerAccountData : ISaveLoad
         SfxVolume = 1f;
         BestScore = 0;
         Coins = 0;
-        Energy = MaxEnergy;
+        Stamina = MaxStamina;
     }
 
     public void Load(PlayerAccountDataSave saveData)
@@ -91,6 +91,6 @@ public class PlayerAccountData : ISaveLoad
         SfxVolume = saveData.sfxVolume;
         BestScore = saveData.bestScore;
         Coins = saveData.coins;
-        Energy = saveData.energy;
+        Stamina = saveData.stamina;
     }
 }
