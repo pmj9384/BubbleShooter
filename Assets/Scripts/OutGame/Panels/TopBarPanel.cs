@@ -1,5 +1,1 @@
-using UnityEngine;
-
-public class TopBarPanel : UIPanel
-{
-}
+public class TopBarPanel : UIPanel { }
