@@ -1,9 +1,10 @@
 using TMPro;
-using UnityEngine;
 
 public class StaminaWidget : UIWidget
 {
-    [SerializeField] private TMP_Text staminaText;
+    private TMP_Text staminaText;
+
+    private void Awake() => staminaText = GetComponent<TMP_Text>();
 
     protected override void Subscribe()
     {

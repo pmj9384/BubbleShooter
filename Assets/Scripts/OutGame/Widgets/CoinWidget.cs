@@ -1,9 +1,10 @@
 using TMPro;
-using UnityEngine;
 
 public class CoinWidget : UIWidget
 {
-    [SerializeField] private TMP_Text coinText;
+    private TMP_Text coinText;
+
+    private void Awake() => coinText = GetComponent<TMP_Text>();
 
     protected override void Subscribe()
     {
