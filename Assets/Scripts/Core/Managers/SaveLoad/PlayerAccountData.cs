@@ -47,7 +47,11 @@ public class PlayerAccountData : ISaveLoad
         private set { energy = Mathf.Clamp(value, 0, MaxEnergy); OnEnergyChanged?.Invoke(energy); }
     }
 
-    public void AddCoins(int amount) => Coins += amount;
+    public void AddCoins(int amount)
+    {
+        if (amount <= 0) return;
+        Coins += amount;
+    }
 
     public bool TryConsumeEnergy()
     {
