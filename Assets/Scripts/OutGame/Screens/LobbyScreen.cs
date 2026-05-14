@@ -13,7 +13,12 @@ public class LobbyScreen : UIScreen
         playButton.onClick.RemoveAllListeners();
         optionsButton.onClick.RemoveAllListeners();
 
-        playButton.onClick.AddListener(() => SceneManager.LoadScene("SampleScene"));
+        playButton.onClick.AddListener(() =>
+        {
+            if (!GameDataManager.Instance.StaminaSystem.TryConsumeStamina()) return;
+            SaveLoadSystem.Instance.Save();
+            SceneManager.LoadScene("SampleScene");
+        });
         optionsButton.onClick.AddListener(() => uiManager.ShowPopup<OutGameSettingsPanel>());
     }
 }

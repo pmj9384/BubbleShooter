@@ -8,18 +8,18 @@ public class StaminaWidget : UIWidget
 
     protected override void Subscribe()
     {
-        GameDataManager.Instance.PlayerAccountData.OnStaminaChanged += UpdateUI;
+        GameDataManager.Instance.StaminaSystem.onStaminaChanged += UpdateUI;
         Refresh();
     }
 
     protected override void Unsubscribe()
     {
-        GameDataManager.Instance.PlayerAccountData.OnStaminaChanged -= UpdateUI;
+        GameDataManager.Instance.StaminaSystem.onStaminaChanged -= UpdateUI;
     }
 
     public override void Refresh()
-        => UpdateUI(GameDataManager.Instance.PlayerAccountData.Stamina);
+        => UpdateUI(GameDataManager.Instance.StaminaSystem.CurrentStamina);
 
     private void UpdateUI(int stamina)
-        => staminaText.text = $"{stamina}/{GameDataManager.Instance.PlayerAccountData.MaxStamina}";
+        => staminaText.text = $"{stamina}/{StaminaSystem.MaxStamina}";
 }
