@@ -20,6 +20,7 @@ public class LobbyScreen : UIScreen
                 uiManager.ShowPopup<StaminaEmptyPopup>();
                 return;
             }
+            GameManager.SkipTitle = true;
             SaveLoadSystem.Instance.Save();
             SceneManager.LoadScene("SampleScene");
         });
