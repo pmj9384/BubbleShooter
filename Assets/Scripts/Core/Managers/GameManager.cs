@@ -90,8 +90,11 @@ public class GameManager : MonoSingleton<GameManager>
         AddGameStateEnterAction(GameState.GameOver, () => SoundManager.Instance.StopBgm());
         // AddGameStateEnterAction(GameState.GamePlay, () => { if (!SoundManager.Instance.bgmAudioSource.isPlaying) SoundManager.Instance.PlayBgm(BgmClipId.IngameBGM); });
 
-        // TODO: GameOver 시 점수 저장 등 게임 특화 로직 추가
-        // AddGameStateEnterAction(GameState.GameOver, () => GameDataManager.Instance.PlayerAccountData.TryUpdateBestScore(score));
+        AddGameStateEnterAction(GameState.GameOver, () =>
+        {
+            GameDataManager.Instance.PlayerAccountData.AddCoins(10);
+            SaveLoadSystem.Instance.Save();
+        });
     }
 
     private void InitializeCoreManagers()
