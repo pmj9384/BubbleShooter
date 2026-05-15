@@ -15,7 +15,11 @@ public class LobbyScreen : UIScreen
 
         playButton.onClick.AddListener(() =>
         {
-            if (!GameDataManager.Instance.StaminaSystem.TryConsumeStamina()) return;
+            if (!GameDataManager.Instance.StaminaSystem.TryConsumeStamina())
+            {
+                uiManager.ShowPopup<StaminaEmptyPopup>();
+                return;
+            }
             SaveLoadSystem.Instance.Save();
             SceneManager.LoadScene("SampleScene");
         });
