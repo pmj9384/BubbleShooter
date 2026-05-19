@@ -42,9 +42,7 @@ public class SafeAreaCanvas : MonoBehaviour
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
-#if !UNITY_EDITOR
         ApplySafeAreaCanvasAnchor();
-#endif
     }
 
     public void ApplySafeAreaCanvasAnchor()
