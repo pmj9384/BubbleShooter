@@ -3,15 +3,17 @@ using UnityEngine.UI;
 
 public class BottomMenuPanel : UIPanel
 {
-    [SerializeField] private Button homeButton;
-    [SerializeField] private Button shopButton;
-    [SerializeField] private Button skinButton;
+    [SerializeField] private Button[] buttons;
+    [SerializeField] private UIScreen[] targetScreen;
 
     public override void SetUIManager(IUIManager uiManager)
     {
         base.SetUIManager(uiManager);
-        homeButton.onClick.AddListener(() => uiManager.OpenScreen<LobbyScreen>());
-        shopButton.onClick.AddListener(() => uiManager.OpenScreen<ShopScreen>());
-        skinButton.onClick.AddListener(() => uiManager.OpenScreen<SkinScreen>());
+        for (int i = 0; i < buttons.Length; i++)
+        {
+            var screen = targetScreen[i];
+            buttons[i].onClick.AddListener(() => uiManager.OpenScreen(screen));
+        }
+
     }
 }

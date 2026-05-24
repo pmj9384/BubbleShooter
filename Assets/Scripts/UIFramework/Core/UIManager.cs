@@ -1,11 +1,14 @@
 using System;
 using System.Collections.Generic;
+using Mono.Cecil.Cil;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour, IUIManager
 {
     private readonly Dictionary<Type, UIScreen> screens = new();
     private readonly Dictionary<Type, UIPopup> popups = new();
+
+
 
     protected void Setup()
     {
@@ -50,5 +53,16 @@ public class UIManager : MonoBehaviour, IUIManager
     {
         if (popups.TryGetValue(typeof(T), out var popup))
             popup.Hide();
+    }
+
+    public void OpenScreen(UIScreen screen)
+    {
+        foreach (var entry in screens)
+        {
+            if (entry.Value == screen)
+                entry.Value.Open();
+            else
+                entry.Value.Close();
+        }
     }
 }
