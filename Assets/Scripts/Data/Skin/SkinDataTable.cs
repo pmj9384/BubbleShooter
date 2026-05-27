@@ -11,6 +11,7 @@ public class SkinDataTable : DataTable
         public string SkinName { get; set; }
         public string Grade { get; set; }
         public float GachaRate { get; set; }
+        public bool IsDefault { get; set; }
     }
 
     private readonly Dictionary<string, SkinRawData> table = new();

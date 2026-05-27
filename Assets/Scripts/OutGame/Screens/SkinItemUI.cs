@@ -28,8 +28,16 @@ public class SkinItemUI : MonoBehaviour
     {
         bool isEquipped = GameDataManager.Instance.SkinUserData.EquippedSkinId == skinId;
         equippedIndicator.SetActive(isEquipped);
-        equipButton.interactable = !isEquipped;
-        equipButtonText.text = isEquipped ? "장착중" : "장착";
+        if (GameDataManager.Instance.SkinUserData.IsOwned(skinId) == false)
+        {
+            equipButton.interactable = false;
+            equipButtonText.text = "잠금";
+        }
+        else
+        {
+            equipButton.interactable = !isEquipped;
+            equipButtonText.text = isEquipped ? "장착중" : "장착";
+        }
     }
 
     private void OnEquipClicked()

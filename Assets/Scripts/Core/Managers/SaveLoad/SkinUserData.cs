@@ -30,7 +30,18 @@ public class SkinUserData : ISaveLoad
         equippedSkinId = skinId;
         OnSkinEquipped?.Invoke(equippedSkinId);
     }
-
+    public bool Unlock(string skinId)
+    {
+        if (IsOwned(skinId) == false)
+        {
+            ownedSkinIds.Add(skinId);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
     public void Save()
     {
         var saveData = SaveLoadSystem.Instance.CurrentSaveData.skinUserDataSave = new();
@@ -41,11 +52,17 @@ public class SkinUserData : ISaveLoad
     public void Load()
     {
         ownedSkinIds.Clear();
-        foreach (var skin in DataTableManager.SkinDataTable.All)
-            ownedSkinIds.Add(skin.SkinId);
-
-        equippedSkinId = DataTableManager.SkinDataTable.All
-            .FirstOrDefault(s => s.Grade == nameof(SkinGrade.Common))?.SkinId;
+        var defaultSkin = DataTableManager.SkinDataTable.All
+        .FirstOrDefault(s => s.IsDefault);
+        if (defaultSkin != null)
+        {
+            ownedSkinIds.Add(defaultSkin.SkinId);
+            equippedSkinId = defaultSkin.SkinId;
+        }
+        else
+        {
+            return;
+        }
     }
 
     public void Load(SkinUserDataSave saveData)
