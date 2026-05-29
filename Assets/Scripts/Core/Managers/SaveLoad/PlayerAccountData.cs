@@ -42,7 +42,22 @@ public class PlayerAccountData : ISaveLoad
         if (amount <= 0) return;
         Coins += amount;
     }
-
+    public bool SpendCoin(int amount)
+    {
+        if (amount <= 0)
+        {
+            return false;
+        }
+        else if (Coins < amount)
+        {
+            return false;
+        }
+        else
+        {
+            Coins -= amount;
+            return true;
+        }
+    }
     public PlayerAccountData()
     {
         SaveLoadSystem.Instance.RegisterOnSaveAction(this);
@@ -73,4 +88,5 @@ public class PlayerAccountData : ISaveLoad
         BestScore = saveData.bestScore;
         Coins = saveData.coins;
     }
+
 }
