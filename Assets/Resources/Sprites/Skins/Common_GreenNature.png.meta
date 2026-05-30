@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: efb4940155a84409db7650711ea8b345
+guid: ac50e8273418c40a497ad1d2294398dc
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8819276289987035435
-    second: Common_GreenNature_0
+      213: -4631743479998954537
+    second: Gemini_Generated_Image_u93flvu93flvu93f-removebg-preview_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -49,8 +49,8 @@ TextureImporter:
   spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 0
-  spritePivot: {x: 0.5, y: 0.5}
+  alignment: 9
+  spritePivot: {x: 0.5, y: 0.37}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
@@ -126,23 +126,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Common_GreenNature_0
+      name: Gemini_Generated_Image_u93flvu93flvu93f-removebg-preview_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 221
-        height: 225
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 87
+        y: 27
+        width: 326
+        height: 454
+      alignment: 9
+      pivot: {x: 0.5, y: 0.37}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5de3c47d0f2ab9580800000000000000
-      internalID: -8819276289987035435
+      spriteID: 7d34eef48ddb8bfb0800000000000000
+      internalID: -4631743479998954537
       vertices: []
       indices: 
       edges: []
@@ -151,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 0ef7576f46b3940b38b79dd531f58d12
     internalID: 0
     vertices: []
     indices: 
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Common_GreenNature_0: -8819276289987035435
+      Gemini_Generated_Image_u93flvu93flvu93f-removebg-preview_0: -4631743479998954537
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
