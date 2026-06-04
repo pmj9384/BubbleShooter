@@ -13,3 +13,10 @@ public enum SfxClipId
     // ButtonClick,
     // Footstep,
 }
+
+public enum SkinGrade
+{
+    Common,
+    Rare,
+    Epic,
+}

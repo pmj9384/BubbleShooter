@@ -29,6 +29,33 @@ public class GameUIManager : InGameManager
         // {
         //     StartCoroutine(ShowDelayed(UIElementEnums.GameOverPanel, 1.5f));
         // });
+
+        GameManager.AddGameStateEnterAction(GameManager.GameState.GameReady, () =>
+        {
+            ShowUIElement(UIElementEnums.HUD);
+        });
+
+        GameManager.AddGameStateEnterAction(GameManager.GameState.GamePlay, () =>
+        {
+            ShowUIElement(UIElementEnums.HUD);
+        });
+
+        GameManager.AddGameStateEnterAction(GameManager.GameState.GameStop, () =>
+        {
+            ShowUIElement(UIElementEnums.PausePanel);
+        });
+
+        GameManager.AddGameStateExitAction(GameManager.GameState.GameStop, () =>
+        {
+            HideUIElement(UIElementEnums.PausePanel);
+            HideUIElement(UIElementEnums.SettingsPanel);
+        });
+
+        GameManager.AddGameStateEnterAction(GameManager.GameState.GameOver, () =>
+        {
+            HideUIElement(UIElementEnums.HUD);
+            ShowUIElement(UIElementEnums.GameOverPanel);
+        });
     }
 
     public void InitializedUIElements()
@@ -48,6 +75,11 @@ public class GameUIManager : InGameManager
     {
         uiElements[(int)type].Hide();
     }
+
+    public void ResumeGame()  => GameManager.SetGameState(GameManager.GameState.GamePlay);
+    public void PauseGame()   => GameManager.SetGameState(GameManager.GameState.GameStop);
+    public void GoToTitle()   => GameManager.GoToTitle();
+    public void RestartGame() => GameManager.RestartGame();
 
     private IEnumerator ShowDelayed(UIElementEnums type, float delay)
     {

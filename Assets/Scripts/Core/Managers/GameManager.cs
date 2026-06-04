@@ -35,8 +35,7 @@ public class GameManager : MonoSingleton<GameManager>
 
     public ObjectPoolManager ObjectPool { get; private set; }
     public GameUIManager UIManager { get; private set; }
-    // TODO: 게임 특화 매니저 여기에 추가
-    // public MyGameManager MyManager { get; private set; }
+    public BubbleGrid BubbleGrid { get; private set; }
 
     #endregion
 
@@ -91,8 +90,11 @@ public class GameManager : MonoSingleton<GameManager>
         AddGameStateEnterAction(GameState.GameOver, () => SoundManager.Instance.StopBgm());
         // AddGameStateEnterAction(GameState.GamePlay, () => { if (!SoundManager.Instance.bgmAudioSource.isPlaying) SoundManager.Instance.PlayBgm(BgmClipId.IngameBGM); });
 
-        // TODO: GameOver 시 점수 저장 등 게임 특화 로직 추가
-        // AddGameStateEnterAction(GameState.GameOver, () => GameDataManager.Instance.PlayerAccountData.TryUpdateBestScore(score));
+        AddGameStateEnterAction(GameState.GameOver, () =>
+        {
+            GameDataManager.Instance.PlayerAccountData.AddCoins(10);
+            SaveLoadSystem.Instance.Save();
+        });
     }
 
     private void InitializeCoreManagers()
@@ -105,8 +107,7 @@ public class GameManager : MonoSingleton<GameManager>
         List<GameObject> managerObjects = GameObject.FindGameObjectsWithTag("Manager").ToList();
 
         UIManager = RegisterManager<GameUIManager>(managerObjects);
-        // TODO: 게임 특화 매니저 등록
-        // MyManager = RegisterManager<MyGameManager>(managerObjects);
+        BubbleGrid = RegisterManager<BubbleGrid>(managerObjects);
 
         foreach (var manager in managers)
         {
@@ -158,7 +159,7 @@ public class GameManager : MonoSingleton<GameManager>
     public void GoToTitle()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene("LobbyScene");
     }
 
     public void AddGameStateEnterAction(GameState state, Action action) => gameStateEnterAction[(int)state] += action;

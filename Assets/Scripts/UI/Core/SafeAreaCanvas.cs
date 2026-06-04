@@ -32,7 +32,6 @@ public enum AnchorPresets
     None
 }
 
-[ExecuteInEditMode]
 [RequireComponent(typeof(RectTransform))]
 public class SafeAreaCanvas : MonoBehaviour
 {
