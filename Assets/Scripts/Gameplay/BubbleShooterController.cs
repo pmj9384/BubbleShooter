@@ -5,8 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(LineRenderer))]
 public class BubbleShooterController : MonoBehaviour
 {
-    private const float LEFT_WALL  = -4.0f;
-    private const float RIGHT_WALL =  4.0f;
+    private const float LEFT_WALL = -4.0f;
+    private const float RIGHT_WALL = 4.0f;
     private const float SHOOT_SPEED = 12f;
     private const float MIN_ANGLE_FROM_HORIZONTAL = 10f;
     private const float REFLECT_LINE_LENGTH = 20f;
@@ -27,13 +27,15 @@ public class BubbleShooterController : MonoBehaviour
     private int shotCount;
 
     public event Action OnFired;
-
+    public event Action<Vector2> OnAimDirectionChanged;
     public int ShotCount => shotCount;
     public int ShotsPerRow => shotsPerRow;
     public int ShotsUntilNextRow => shotsPerRow - (shotCount % shotsPerRow);
     public BubbleColor CurrentColor => currentColor;
     public BubbleColor NextColor => upcomingColors[0];
     public IReadOnlyList<BubbleColor> UpcomingColors => upcomingColors;
+
+
 
     private void Awake()
     {
@@ -80,6 +82,7 @@ public class BubbleShooterController : MonoBehaviour
             Vector2 dir = GetAimDirection();
             if (dir != Vector2.zero) UpdateAimLine(dir);
             else lineRenderer.enabled = false;
+            OnAimDirectionChanged?.Invoke(dir);
         }
     }
 
@@ -154,6 +157,7 @@ public class BubbleShooterController : MonoBehaviour
         RefreshShooterDisplay();
 
         OnFired?.Invoke();
+
     }
 
     private void RefreshShooterDisplay()

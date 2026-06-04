@@ -3279,6 +3279,7 @@ GameObject:
   - component: {fileID: 2125349312}
   - component: {fileID: 2125349314}
   - component: {fileID: 2125349315}
+  - component: {fileID: 2125349316}
   m_Layer: 0
   m_Name: BubbleShooter
   m_TagString: Untagged
@@ -3450,6 +3451,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 926068424}
+--- !u!114 &2125349316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2125349311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66550d407da3f4882b04c8239a649a07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controller: {fileID: 2125349314}
+  shooterTransform: {fileID: 2125349313}
 --- !u!21 &2125610513
 Material:
   serializedVersion: 8
