@@ -35,25 +35,56 @@ public class ShooterAimer : MonoBehaviour
     private void HandleDragging(Vector2 screenPos)
     {
         var dir = GetAimDirection(screenPos);
-        if (dir != Vector2.zero) UpdateAimLine(dir);
-        else lineRenderer.enabled = false;
+        if (dir != Vector2.zero)
+            UpdateAimLine(dir);
+        else
+            lineRenderer.enabled = false;
         OnAimDirectionChanged?.Invoke(dir);
-        lineRenderer.enabled = true;
     }
 
     private void HandleReleased(Vector2 screenPos)
     {
-        // TODO
+        lineRenderer.enabled = false;
     }
 
     private Vector2 GetAimDirection(Vector2 screenPos)
     {
-        // TODO
-        return Vector2.zero;
+        Vector3 worldPos = Camera.main.ScreenToWorldPoint(screenPos);
+        Vector2 dir = ((Vector2)transform.position - (Vector2)worldPos).normalized;
+
+        if (dir.y <= 0) return Vector2.zero;
+
+        float minY = Mathf.Sin(MIN_ANGLE_FROM_HORIZONTAL * Mathf.Deg2Rad);
+        if (dir.y < minY)
+        {
+            dir.y = minY;
+            dir = dir.normalized;
+        }
+        return dir;
     }
 
     private void UpdateAimLine(Vector2 dir)
     {
-        // TODO
+        lineRenderer.enabled = true;
+        Vector2 p0 = transform.position;
+
+        Vector2 p1, p2;
+        if (Mathf.Abs(dir.x) < 0.001f)
+        {
+            p1 = p0 + dir * (REFLECT_LINE_LENGTH * 0.5f);
+            p2 = p0 + dir * REFLECT_LINE_LENGTH;
+        }
+        else
+        {
+            float wallX = dir.x > 0 ? RIGHT_WALL : LEFT_WALL;
+            float t = (wallX - p0.x) / dir.x;
+            p1 = p0 + dir * t;
+            Vector2 reflectedDir = new Vector2(-dir.x, dir.y).normalized;
+            p2 = p1 + reflectedDir * REFLECT_LINE_LENGTH;
+        }
+
+        lineRenderer.SetPosition(0, p0);
+        lineRenderer.SetPosition(1, p1);
+        lineRenderer.SetPosition(2, p2);
     }
 }

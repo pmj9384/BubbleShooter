@@ -10,7 +10,6 @@ public class BubbleShooterController : MonoBehaviour
     private const float SHOOT_SPEED = 12f;
     private const float MIN_ANGLE_FROM_HORIZONTAL = 10f;
     private const float REFLECT_LINE_LENGTH = 20f;
-    private const int UPCOMING_COUNT = 6; // [0]=next, [1~5]=preview
 
     [SerializeField] private GameObject bubblePrefab;
     [SerializeField] private SpriteRenderer currentBubbleRenderer;
@@ -20,8 +19,7 @@ public class BubbleShooterController : MonoBehaviour
 
     private LineRenderer lineRenderer;
     private BubbleGrid bubbleGrid;
-    private BubbleColor currentColor;
-    private readonly List<BubbleColor> upcomingColors = new();
+    private BubbleQueue bubbleQueue;
     private bool isDragging;
     private bool canShoot = true;
     private int shotCount;
@@ -31,22 +29,18 @@ public class BubbleShooterController : MonoBehaviour
     public int ShotCount => shotCount;
     public int ShotsPerRow => shotsPerRow;
     public int ShotsUntilNextRow => shotsPerRow - (shotCount % shotsPerRow);
-    public BubbleColor CurrentColor => currentColor;
-    public BubbleColor NextColor => upcomingColors[0];
-    public IReadOnlyList<BubbleColor> UpcomingColors => upcomingColors;
-
-
+    public BubbleColor CurrentColor => bubbleQueue.CurrentColor;
+    public BubbleColor NextColor => bubbleQueue.NextColor;
+    public IReadOnlyList<BubbleColor> UpcomingColors => bubbleQueue.UpcomingColors;
 
     private void Awake()
     {
-        for (int i = 0; i < UPCOMING_COUNT; i++)
-            upcomingColors.Add(RandomColor());
-        currentColor = RandomColor();
+        bubbleQueue = GetComponent<BubbleQueue>();
+        lineRenderer = GetComponent<LineRenderer>();
     }
 
     private void Start()
     {
-        lineRenderer = GetComponent<LineRenderer>();
         bubbleGrid = GameManager.Instance.BubbleGrid;
         RefreshShooterDisplay();
     }
@@ -134,7 +128,7 @@ public class BubbleShooterController : MonoBehaviour
         GameObject go = Instantiate(bubblePrefab, transform.position, Quaternion.identity);
 
         var bubble = go.GetComponent<Bubble>();
-        bubble.SetColor(currentColor);
+        bubble.SetColor(bubbleQueue.CurrentColor);
 
         var col = go.GetComponent<CircleCollider2D>();
         col.isTrigger = true;
@@ -149,21 +143,18 @@ public class BubbleShooterController : MonoBehaviour
         };
 
         var proj = go.AddComponent<BubbleProjectile>();
-        proj.Launch(currentColor, dir, SHOOT_SPEED, LEFT_WALL, RIGHT_WALL, bubbleGrid, onLanded);
+        proj.Launch(bubbleQueue.CurrentColor, dir, SHOOT_SPEED, LEFT_WALL, RIGHT_WALL, bubbleGrid, onLanded);
 
-        currentColor = upcomingColors[0];
-        upcomingColors.RemoveAt(0);
-        upcomingColors.Add(RandomColor());
+        bubbleQueue.Consume();
         RefreshShooterDisplay();
 
         OnFired?.Invoke();
-
     }
 
     private void RefreshShooterDisplay()
     {
         if (currentBubbleRenderer != null)
-            currentBubbleRenderer.color = Bubble.GetColorMap()[(int)currentColor];
+            currentBubbleRenderer.color = Bubble.GetColorMap()[(int)bubbleQueue.CurrentColor];
     }
 
     private void OnProjectileLanded()
@@ -172,7 +163,4 @@ public class BubbleShooterController : MonoBehaviour
         if (bubbleGrid.HasBubbleBelowY(gameOverY))
             GameManager.Instance.SetGameState(GameManager.GameState.GameOver);
     }
-
-    private BubbleColor RandomColor() =>
-        (BubbleColor)UnityEngine.Random.Range(0, (int)BubbleColor.Count);
 }

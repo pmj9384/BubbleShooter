@@ -3280,6 +3280,9 @@ GameObject:
   - component: {fileID: 2125349314}
   - component: {fileID: 2125349315}
   - component: {fileID: 2125349316}
+  - component: {fileID: 2125349317}
+  - component: {fileID: 2125349319}
+  - component: {fileID: 2125349318}
   m_Layer: 0
   m_Name: BubbleShooter
   m_TagString: Untagged
@@ -3465,6 +3468,42 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 2125349314}
   shooterTransform: {fileID: 2125349313}
+--- !u!114 &2125349317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2125349311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd27920ddca9e4eb7bac04b475dc33b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2125349318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2125349311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3500b2eeb764c43f1a3e156c00ca304b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2125349319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2125349311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e82fbafca942e462f8c8ed9ab58861c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!21 &2125610513
 Material:
   serializedVersion: 8
