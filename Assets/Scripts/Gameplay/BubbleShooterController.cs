@@ -28,8 +28,11 @@ public class BubbleShooterController : MonoBehaviour
     public int ShotsPerRow => shotsPerRow;
     public int ShotsUntilNextRow => shotsPerRow - (shotCount % shotsPerRow);
     public BubbleColor CurrentColor => bubbleQueue.CurrentColor;
+    public BubbleType CurrentType => bubbleQueue.CurrentType;
     public BubbleColor NextColor => bubbleQueue.NextColor;
+    public BubbleType NextType => bubbleQueue.NextType;
     public IReadOnlyList<BubbleColor> UpcomingColors => bubbleQueue.UpcomingColors;
+    public IReadOnlyList<BubbleType> UpcomingTypes => bubbleQueue.UpcomingTypes;
 
     private void Awake()
     {
@@ -102,7 +105,7 @@ public class BubbleShooterController : MonoBehaviour
         };
 
         var proj = go.AddComponent<BubbleProjectile>();
-        proj.Launch(bubbleQueue.CurrentColor, dir, SHOOT_SPEED, LEFT_WALL, RIGHT_WALL, bubbleGrid, onLanded);
+        proj.Launch(bubbleQueue.CurrentColor, bubbleQueue.CurrentType, dir, SHOOT_SPEED, LEFT_WALL, RIGHT_WALL, bubbleGrid, onLanded);
 
         bubbleQueue.Consume();
         RefreshShooterDisplay();

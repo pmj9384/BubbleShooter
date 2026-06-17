@@ -13,10 +13,12 @@ public class BubbleProjectile : MonoBehaviour
     private Action onLanded;
 
     public BubbleColor Color { get; private set; }
+    public BubbleType Type { get; private set; }
 
-    public void Launch(BubbleColor color, Vector2 direction, float speed, float leftWall, float rightWall, BubbleGrid grid, Action onLanded = null)
+    public void Launch(BubbleColor color, BubbleType type, Vector2 direction, float speed, float leftWall, float rightWall, BubbleGrid grid, Action onLanded = null)
     {
         Color = color;
+        Type = type;
         this.leftWall = leftWall;
         this.rightWall = rightWall;
         this.grid = grid;
