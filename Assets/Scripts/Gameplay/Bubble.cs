@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
@@ -11,16 +10,26 @@ public class Bubble : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
 
-    public static UnityEngine.Color[] GetColorMap() => ColorMap;
+    private static Sprite[] normalSprites;
+    private static Sprite bombSprite;
+    private static Sprite wildcardSprite;
 
-    private static readonly UnityEngine.Color[] ColorMap = new UnityEngine.Color[]
+    private static void LoadSprites()
     {
-        UnityEngine.Color.red,
-        UnityEngine.Color.blue,
-        UnityEngine.Color.green,
-        UnityEngine.Color.yellow,
-        new UnityEngine.Color(0.6f, 0.2f, 0.8f), // Purple
-    };
+        if (normalSprites != null) return;
+        normalSprites = new Sprite[(int)BubbleColor.Count];
+        normalSprites[(int)BubbleColor.Red]    = Resources.Load<Sprite>("Sprites/Bubbles/bubble_red");
+        normalSprites[(int)BubbleColor.Blue]   = Resources.Load<Sprite>("Sprites/Bubbles/bubble_blue");
+        normalSprites[(int)BubbleColor.Green]  = Resources.Load<Sprite>("Sprites/Bubbles/bubble_green");
+        normalSprites[(int)BubbleColor.Yellow] = Resources.Load<Sprite>("Sprites/Bubbles/bubble_yellow");
+        normalSprites[(int)BubbleColor.Purple] = Resources.Load<Sprite>("Sprites/Bubbles/bubble_purple");
+        bombSprite     = Resources.Load<Sprite>("Sprites/Bubbles/bubble_bomb");
+        wildcardSprite = Resources.Load<Sprite>("Sprites/Bubbles/bubble_wildcard");
+    }
+
+    public static Sprite GetNormalSprite(BubbleColor color) { LoadSprites(); return normalSprites[(int)color]; }
+    public static Sprite GetBombSprite()     { LoadSprites(); return bombSprite; }
+    public static Sprite GetWildcardSprite() { LoadSprites(); return wildcardSprite; }
 
     private void Awake()
     {
@@ -31,35 +40,20 @@ public class Bubble : MonoBehaviour
 
     public void SetColor(BubbleColor color)
     {
-        Color = color;
-        if (spriteRenderer == null)
-            spriteRenderer = GetComponent<SpriteRenderer>();
-        spriteRenderer.color = ColorMap[(int)color];
+        SetVisual(color, BubbleType.Normal);
     }
 
     public void SetVisual(BubbleColor color, BubbleType type)
     {
         Color = color;
-        if (spriteRenderer == null)
-            spriteRenderer = GetComponent<SpriteRenderer>();
-        StopAllCoroutines();
-
-        if (type == BubbleType.Bomb)
-            spriteRenderer.color = UnityEngine.Color.black;
-        else if (type == BubbleType.Wildcard)
-            StartCoroutine(RainbowLoop());
-        else
-            spriteRenderer.color = ColorMap[(int)color];
-    }
-
-    private IEnumerator RainbowLoop()
-    {
-        float hue = 0f;
-        while (true)
+        spriteRenderer = spriteRenderer ?? GetComponent<SpriteRenderer>();
+        LoadSprites();
+        spriteRenderer.color = UnityEngine.Color.white;
+        spriteRenderer.sprite = type switch
         {
-            spriteRenderer.color = UnityEngine.Color.HSVToRGB(hue, 1f, 1f);
-            hue = (hue + Time.deltaTime * 1.5f) % 1f;
-            yield return null;
-        }
+            BubbleType.Bomb     => bombSprite,
+            BubbleType.Wildcard => wildcardSprite,
+            _                   => normalSprites[(int)color],
+        };
     }
 }
