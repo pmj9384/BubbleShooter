@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
@@ -34,5 +35,31 @@ public class Bubble : MonoBehaviour
         if (spriteRenderer == null)
             spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.color = ColorMap[(int)color];
+    }
+
+    public void SetVisual(BubbleColor color, BubbleType type)
+    {
+        Color = color;
+        if (spriteRenderer == null)
+            spriteRenderer = GetComponent<SpriteRenderer>();
+        StopAllCoroutines();
+
+        if (type == BubbleType.Bomb)
+            spriteRenderer.color = UnityEngine.Color.black;
+        else if (type == BubbleType.Wildcard)
+            StartCoroutine(RainbowLoop());
+        else
+            spriteRenderer.color = ColorMap[(int)color];
+    }
+
+    private IEnumerator RainbowLoop()
+    {
+        float hue = 0f;
+        while (true)
+        {
+            spriteRenderer.color = UnityEngine.Color.HSVToRGB(hue, 1f, 1f);
+            hue = (hue + Time.deltaTime * 1.5f) % 1f;
+            yield return null;
+        }
     }
 }
