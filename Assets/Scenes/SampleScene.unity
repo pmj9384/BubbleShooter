@@ -3283,6 +3283,9 @@ GameObject:
   - component: {fileID: 2125349317}
   - component: {fileID: 2125349319}
   - component: {fileID: 2125349318}
+  - component: {fileID: 2125349322}
+  - component: {fileID: 2125349321}
+  - component: {fileID: 2125349320}
   m_Layer: 0
   m_Name: BubbleShooter
   m_TagString: Untagged
@@ -3502,6 +3505,42 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e82fbafca942e462f8c8ed9ab58861c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2125349320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2125349311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 230ec8d90491b433a9d58e2dd6575874, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2125349321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2125349311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5574ade5bc5c94f0f8b4ad9ed9c78df6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2125349322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2125349311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4498fef7a00e94dc1b4b5f51794365b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!21 &2125610513

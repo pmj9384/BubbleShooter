@@ -33,7 +33,7 @@ public class BubbleProjectile : MonoBehaviour
         rb.linearVelocity = direction.normalized * speed;
 
         var bubble = GetComponent<Bubble>();
-        if (bubble != null) bubble.SetColor(color);
+        if (bubble != null) bubble.SetVisual(color, type);
     }
 
     private void FixedUpdate()

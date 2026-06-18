@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -92,7 +93,7 @@ public class BubbleShooterController : MonoBehaviour
         GameObject go = Instantiate(bubblePrefab, transform.position, Quaternion.identity);
 
         var bubble = go.GetComponent<Bubble>();
-        bubble.SetColor(bubbleQueue.CurrentColor);
+        bubble.SetVisual(bubbleQueue.CurrentColor, bubbleQueue.CurrentType);
 
         var col = go.GetComponent<CircleCollider2D>();
         col.isTrigger = true;
@@ -117,8 +118,27 @@ public class BubbleShooterController : MonoBehaviour
 
     private void RefreshShooterDisplay()
     {
-        if (currentBubbleRenderer != null)
+        if (currentBubbleRenderer == null) return;
+        StopAllCoroutines();
+
+        var type = bubbleQueue.CurrentType;
+        if (type == BubbleType.Bomb)
+            currentBubbleRenderer.color = UnityEngine.Color.black;
+        else if (type == BubbleType.Wildcard)
+            StartCoroutine(PreviewRainbowLoop());
+        else
             currentBubbleRenderer.color = Bubble.GetColorMap()[(int)bubbleQueue.CurrentColor];
+    }
+
+    private IEnumerator PreviewRainbowLoop()
+    {
+        float hue = 0f;
+        while (true)
+        {
+            currentBubbleRenderer.color = UnityEngine.Color.HSVToRGB(hue, 1f, 1f);
+            hue = (hue + Time.deltaTime * 1.5f) % 1f;
+            yield return null;
+        }
     }
 
     private void OnProjectileLanded()

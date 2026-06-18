@@ -45,6 +45,9 @@ public class BubbleQueue : MonoBehaviour
 
     private BubbleType RandomType()
     {
+        float r = Random.value;
+        if (r < 0.25f) return BubbleType.Bomb;
+        if (r < 0.50f) return BubbleType.Wildcard;
         return BubbleType.Normal;
     }
 }
