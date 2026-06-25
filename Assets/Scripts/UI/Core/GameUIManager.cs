@@ -6,6 +6,23 @@ public class GameUIManager : InGameManager
 {
     public List<UIElement> uiElements;
 
+    [SerializeField] private RectTransform topBarRect;
+    [SerializeField] private RectTransform bottomBarRect;
+
+    public float GetPlayAreaTopScreenY()
+    {
+        var corners = new Vector3[4];
+        topBarRect.GetWorldCorners(corners);
+        return corners[0].y;
+    }
+
+    public float GetPlayAreaBottomScreenY()
+    {
+        var corners = new Vector3[4];
+        bottomBarRect.GetWorldCorners(corners);
+        return corners[1].y;
+    }
+
     public override void Initialize()
     {
         base.Initialize();

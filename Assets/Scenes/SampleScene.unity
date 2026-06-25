@@ -368,7 +368,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bubblePrefab: {fileID: 3866532289882092492, guid: 0213fb807107c41cfa0868b67f30b4c2, type: 3}
-  topBarRect: {fileID: 1867053592}
   gridOriginX: -3.5
   gridOriginY: 7
 --- !u!4 &202084603
@@ -1192,11 +1191,9 @@ MonoBehaviour:
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 570cb8d9b1f5547dbbadfe6bca9f3bfe, type: 2}
   m_sharedMaterial: {fileID: 991520660}
-  m_fontSharedMaterials:
-  - {fileID: 991520660}
+  m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 991520660}
-  m_fontMaterials:
-  - {fileID: 991520660}
+  m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
@@ -2707,6 +2704,8 @@ MonoBehaviour:
   - {fileID: 764213834}
   - {fileID: 210882761}
   - {fileID: 1768768216}
+  topBarRect: {fileID: 1867053592}
+  bottomBarRect: {fileID: 1845124845}
 --- !u!224 &1510950509
 RectTransform:
   m_ObjectHideFlags: 0

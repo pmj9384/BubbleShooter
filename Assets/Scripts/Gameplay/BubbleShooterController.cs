@@ -14,7 +14,6 @@ public class BubbleShooterController : MonoBehaviour
 
     [SerializeField] private int shotsPerRow = 5;
     private float gameOverY;
-    private RectTransform bottomBarRect;
 
     private BubbleGrid bubbleGrid;
     private BubbleQueue bubbleQueue;
@@ -63,7 +62,7 @@ public class BubbleShooterController : MonoBehaviour
         Camera cam = Camera.main;
         float camZ = Mathf.Abs(cam.transform.position.z);
 
-        float bottomBarTopScreenY = GetBottomBarTopScreenY();
+        float bottomBarTopScreenY = GameManager.Instance.UIManager.GetPlayAreaBottomScreenY();
         Vector3 bottomBarTopWorld = cam.ScreenToWorldPoint(
             new Vector3(Screen.width * 0.5f, bottomBarTopScreenY, camZ));
 
@@ -76,16 +75,6 @@ public class BubbleShooterController : MonoBehaviour
         transform.position = new Vector3(transform.position.x, shooterY, transform.position.z);
 
         gameOverY = shooterY + BubbleGrid.ROW_HEIGHT * 2f;
-    }
-
-    private float GetBottomBarTopScreenY()
-    {
-        if (bottomBarRect == null)
-            bottomBarRect = GameObject.Find("BottomBar").GetComponent<RectTransform>();
-
-        var corners = new Vector3[4];
-        bottomBarRect.GetWorldCorners(corners);
-        return corners[1].y; // Screen Space Overlay에서 corners[1]은 top-left (픽셀)
     }
 
     private void OnEnable()

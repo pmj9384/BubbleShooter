@@ -10,7 +10,6 @@ public class BubbleGrid : InGameManager
     public const int MAX_ROWS = 20;
 
     [SerializeField] private GameObject bubblePrefab;
-    [SerializeField] private RectTransform topBarRect;
     [SerializeField] private float gridOriginX = -3.5f;
     [SerializeField] private float gridOriginY = 7.0f;
 
@@ -42,19 +41,9 @@ public class BubbleGrid : InGameManager
         float halfW = cam.orthographicSize * cam.aspect;
         gridOriginX = -halfW + BUBBLE_DIAMETER * 0.5f;
 
-        float topScreenY = GetPlayAreaTopScreenY();
+        float topScreenY = GameManager.UIManager.GetPlayAreaTopScreenY();
         Vector3 topWorld = cam.ScreenToWorldPoint(new Vector3(0, topScreenY, camZ));
         gridOriginY = topWorld.y - BUBBLE_DIAMETER * 0.5f;
-    }
-
-    private float GetPlayAreaTopScreenY()
-    {
-        if (topBarRect == null)
-            topBarRect = GameObject.Find("TopBar").GetComponent<RectTransform>();
-
-        var corners = new Vector3[4];
-        topBarRect.GetWorldCorners(corners);
-        return corners[0].y; // Screen Space Overlay에서 corners[0]은 bottom-left (픽셀)
     }
 
     private bool IsOffsetRow(int row) => (row + rowOffset) % 2 == 1;
