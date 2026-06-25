@@ -73,6 +73,7 @@ public class GameUIManager : InGameManager
             HideUIElement(UIElementEnums.HUD);
             ShowUIElement(UIElementEnums.GameOverPanel);
         });
+
     }
 
     public void InitializedUIElements()

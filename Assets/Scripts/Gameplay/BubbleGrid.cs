@@ -13,6 +13,8 @@ public class BubbleGrid : InGameManager
     [SerializeField] private float gridOriginX = -3.5f;
     [SerializeField] private float gridOriginY = 7.0f;
 
+    public event System.Action OnBubblePopped;
+
     public Bubble[,] Grid { get; private set; } = new Bubble[MAX_ROWS, COLS_EVEN];
 
     private ObjectPool<GameObject> bubblePool;
@@ -102,6 +104,7 @@ public class BubbleGrid : InGameManager
         {
             bubblePool.Release(Grid[row, col].gameObject);
             Grid[row, col] = null;
+            OnBubblePopped?.Invoke();
         }
     }
 

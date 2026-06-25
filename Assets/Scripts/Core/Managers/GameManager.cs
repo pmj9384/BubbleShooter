@@ -36,6 +36,7 @@ public class GameManager : MonoSingleton<GameManager>
     public ObjectPoolManager ObjectPool { get; private set; }
     public GameUIManager UIManager { get; private set; }
     public BubbleGrid BubbleGrid { get; private set; }
+    public InGameCountManager CountManager { get; private set; }
 
     #endregion
 
@@ -108,6 +109,7 @@ public class GameManager : MonoSingleton<GameManager>
 
         UIManager = RegisterManager<GameUIManager>(managerObjects);
         BubbleGrid = RegisterManager<BubbleGrid>(managerObjects);
+        CountManager = RegisterManager<InGameCountManager>(managerObjects);
 
         foreach (var manager in managers)
         {
