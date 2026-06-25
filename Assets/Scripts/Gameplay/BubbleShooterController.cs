@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,7 +13,8 @@ public class BubbleShooterController : MonoBehaviour
     [SerializeField] private SpriteRenderer currentBubbleRenderer;
 
     [SerializeField] private int shotsPerRow = 5;
-    [SerializeField] private float gameOverY = -5f;
+    private float gameOverY;
+    private RectTransform bottomBarRect;
 
     private BubbleGrid bubbleGrid;
     private BubbleQueue bubbleQueue;
@@ -47,6 +49,43 @@ public class BubbleShooterController : MonoBehaviour
     {
         bubbleGrid = GameManager.Instance.BubbleGrid;
         RefreshShooterDisplay();
+        StartCoroutine(SetupPositionAfterLayout());
+    }
+
+    private IEnumerator SetupPositionAfterLayout()
+    {
+        yield return new WaitForEndOfFrame(); // 렌더링 후 bounds 확정 대기
+        SetupPosition();
+    }
+
+    private void SetupPosition()
+    {
+        Camera cam = Camera.main;
+        float camZ = Mathf.Abs(cam.transform.position.z);
+
+        float bottomBarTopScreenY = GetBottomBarTopScreenY();
+        Vector3 bottomBarTopWorld = cam.ScreenToWorldPoint(
+            new Vector3(Screen.width * 0.5f, bottomBarTopScreenY, camZ));
+
+        var shooterSprite = transform.Find("ShooterSprite")?.GetComponent<SpriteRenderer>();
+        float spriteHalfH = (shooterSprite != null)
+            ? shooterSprite.bounds.extents.y
+            : BubbleGrid.BUBBLE_DIAMETER;
+
+        float shooterY = bottomBarTopWorld.y + spriteHalfH;
+        transform.position = new Vector3(transform.position.x, shooterY, transform.position.z);
+
+        gameOverY = shooterY + BubbleGrid.ROW_HEIGHT * 2f;
+    }
+
+    private float GetBottomBarTopScreenY()
+    {
+        if (bottomBarRect == null)
+            bottomBarRect = GameObject.Find("BottomBar").GetComponent<RectTransform>();
+
+        var corners = new Vector3[4];
+        bottomBarRect.GetWorldCorners(corners);
+        return corners[1].y; // Screen Space Overlay에서 corners[1]은 top-left (픽셀)
     }
 
     private void OnEnable()

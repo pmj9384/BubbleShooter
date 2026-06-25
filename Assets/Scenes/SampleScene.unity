@@ -368,6 +368,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bubblePrefab: {fileID: 3866532289882092492, guid: 0213fb807107c41cfa0868b67f30b4c2, type: 3}
+  topBarRect: {fileID: 1867053592}
   gridOriginX: -3.5
   gridOriginY: 7
 --- !u!4 &202084603
@@ -1330,11 +1331,9 @@ MonoBehaviour:
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 570cb8d9b1f5547dbbadfe6bca9f3bfe, type: 2}
   m_sharedMaterial: {fileID: 1727921138}
-  m_fontSharedMaterials:
-  - {fileID: 1727921138}
+  m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 1727921138}
-  m_fontMaterials:
-  - {fileID: 1727921138}
+  m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
@@ -1779,7 +1778,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2125349313}
@@ -3619,7 +3618,6 @@ MonoBehaviour:
   bubblePrefab: {fileID: 3866532289882092492, guid: 0213fb807107c41cfa0868b67f30b4c2, type: 3}
   currentBubbleRenderer: {fileID: 5232236}
   shotsPerRow: 5
-  gameOverY: -5
 --- !u!114 &2125349315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3800,7 +3798,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 331312122606855306, guid: 62cb9a380e1bb40f085403a8671870ae, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4730688684064834792, guid: 62cb9a380e1bb40f085403a8671870ae, type: 3}
       propertyPath: m_fontMaterial
@@ -4211,7 +4209,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8086546597371106093, guid: 77194bbbb2753463b8aa4c2d4da9e211, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4268,7 +4266,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1766249591942164484, guid: 58c27aa2cebff4d01a0a9e56a6a64142, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2349419065270464088, guid: 58c27aa2cebff4d01a0a9e56a6a64142, type: 3}
       propertyPath: m_AnchorMax.y
