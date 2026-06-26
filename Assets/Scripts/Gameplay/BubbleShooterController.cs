@@ -17,7 +17,7 @@ public class BubbleShooterController : MonoBehaviour
 
     private BubbleGrid bubbleGrid;
     private BubbleQueue bubbleQueue;
-    private BubbleEffectController effectController;
+    private BubbleSkillController skillController;
     private ShooterInputHandler inputHandler;
     private ShooterAimer aimer;
     private Vector2 lastAimDir;
@@ -39,7 +39,7 @@ public class BubbleShooterController : MonoBehaviour
     private void Awake()
     {
         bubbleQueue = GetComponent<BubbleQueue>();
-        effectController = GetComponent<BubbleEffectController>();
+        skillController = GetComponent<BubbleSkillController>();
         inputHandler = GetComponent<ShooterInputHandler>();
         aimer = GetComponent<ShooterAimer>();
     }
@@ -101,7 +101,29 @@ public class BubbleShooterController : MonoBehaviour
     {
         if (GameManager.Instance.CurrentState != GameManager.GameState.GamePlay) return;
         if (!canShoot) return;
-        if (lastAimDir != Vector2.zero) Fire(lastAimDir);
+
+        if (skillController.UsesCustomFire(bubbleQueue.CurrentType))
+            FireCustom(screenPos);
+        else if (lastAimDir != Vector2.zero)
+            Fire(lastAimDir);
+    }
+
+    private void FireCustom(Vector2 screenPos)
+    {
+        canShoot = false;
+        var type = bubbleQueue.CurrentType;
+        shotCount++;
+        bool shouldAddRow = shotCount % shotsPerRow == 0;
+
+        bubbleQueue.Consume();
+        RefreshShooterDisplay();
+        OnFired?.Invoke();
+
+        skillController.CustomFire(type, screenPos, bubbleGrid, () =>
+        {
+            if (shouldAddRow) OnProjectileLanded();
+            canShoot = true;
+        });
     }
 
     private void HandleEscape()
@@ -135,7 +157,7 @@ public class BubbleShooterController : MonoBehaviour
         };
 
         var proj = go.AddComponent<BubbleProjectile>();
-        proj.Launch(bubbleQueue.CurrentColor, bubbleQueue.CurrentType, dir, SHOOT_SPEED, LEFT_WALL, RIGHT_WALL, bubbleGrid, effectController, onLanded);
+        proj.Launch(bubbleQueue.CurrentColor, bubbleQueue.CurrentType, dir, SHOOT_SPEED, LEFT_WALL, RIGHT_WALL, bubbleGrid, skillController, onLanded);
 
         bubbleQueue.Consume();
         RefreshShooterDisplay();

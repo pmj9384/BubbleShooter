@@ -8,7 +8,7 @@ public class BubbleProjectile : MonoBehaviour
     private float leftWall;
     private float rightWall;
     private BubbleGrid grid;
-    private BubbleEffectController effectController;
+    private BubbleSkillController skillController;
     private bool landed;
     private Rigidbody2D rb;
     private Action onLanded;
@@ -16,11 +16,11 @@ public class BubbleProjectile : MonoBehaviour
     public BubbleColor Color { get; private set; }
     public BubbleType Type { get; private set; }
 
-    public void Launch(BubbleColor color, BubbleType type, Vector2 direction, float speed, float leftWall, float rightWall, BubbleGrid grid, BubbleEffectController effectController, Action onLanded = null)
+    public void Launch(BubbleColor color, BubbleType type, Vector2 direction, float speed, float leftWall, float rightWall, BubbleGrid grid, BubbleSkillController skillController, Action onLanded = null)
     {
         Color = color;
         Type = type;
-        this.effectController = effectController;
+        this.skillController = skillController;
         this.leftWall = leftWall;
         this.rightWall = rightWall;
         this.grid = grid;
@@ -79,7 +79,7 @@ public class BubbleProjectile : MonoBehaviour
         if (bubble != null)
         {
             grid.PlaceBubble(bubble, row, col);
-            effectController.Apply(Type, grid, row, col);
+            skillController.OnLand(Type, grid, row, col);
             onLanded?.Invoke();
 
             // BubbleProjectile 역할 끝 — Bubble로 전환

@@ -1,12 +1,16 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class WildcardBubbleEffect : MonoBehaviour, IBubbleEffect
+public class WildcardSkill : MonoBehaviour, IBubbleSkill
 {
     public BubbleType TargetType => BubbleType.Wildcard;
+    public bool UsesCustomFire => false;
 
-    public void Apply(BubbleGrid grid, int row, int col)
+    public void CustomFire(Vector2 screenPos, BubbleGrid grid, Action onComplete) { }
+
+    public void OnLand(BubbleGrid grid, int row, int col)
     {
         var colorCounts = new Dictionary<BubbleColor, int>();
 
@@ -23,7 +27,7 @@ public class WildcardBubbleEffect : MonoBehaviour, IBubbleEffect
 
         BubbleColor targetColor = colorCounts.Count > 0
             ? colorCounts.OrderByDescending(kvp => kvp.Value).First().Key
-            : (BubbleColor)Random.Range(0, (int)BubbleColor.Count);
+            : (BubbleColor)UnityEngine.Random.Range(0, (int)BubbleColor.Count);
 
         grid.Grid[row, col].SetColor(targetColor);
 

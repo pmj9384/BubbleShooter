@@ -3715,6 +3715,10 @@ GameObject:
   - component: {fileID: 2125349321}
   - component: {fileID: 2125349320}
   - component: {fileID: 2125349323}
+  - component: {fileID: 2125349327}
+  - component: {fileID: 2125349326}
+  - component: {fileID: 2125349325}
+  - component: {fileID: 2125349324}
   m_Layer: 0
   m_Name: BubbleShooter
   m_TagString: Untagged
@@ -3981,6 +3985,54 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5e63c0b50148247cfbaca5be8cd4aa13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2125349324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2125349311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6987f073b48894e6f91b05cf4f5f9c26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2125349325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2125349311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e76edd09f8e44d048cc8f68bdcb6f88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2125349326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2125349311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7442992170bf414eba22463c14ae09e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2125349327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2125349311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a285899f8183c4255aa3cf601dd6806f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!21 &2125610513
