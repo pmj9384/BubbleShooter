@@ -79,11 +79,11 @@ public class BubbleProjectile : MonoBehaviour
         if (bubble != null)
         {
             grid.PlaceBubble(bubble, row, col);
-            skillController.OnLand(Type, grid, row, col);
-            onLanded?.Invoke();
-
-            // BubbleProjectile 역할 끝 — Bubble로 전환
-            Destroy(this);
+            skillController.OnLand(Type, grid, row, col, () =>
+            {
+                onLanded?.Invoke();
+                Destroy(this);
+            });
         }
     }
 }

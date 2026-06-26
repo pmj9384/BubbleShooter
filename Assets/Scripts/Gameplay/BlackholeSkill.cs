@@ -2,14 +2,11 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlackholeSkill : MonoBehaviour, IBubbleSkill
+public class BlackholeSkill : BubbleSkill
 {
-    public BubbleType TargetType => BubbleType.Blackhole;
-    public bool UsesCustomFire => false;
+    public override BubbleType TargetType => BubbleType.Blackhole;
 
-    public void CustomFire(Vector2 screenPos, BubbleGrid grid, Action onComplete) { }
-
-    public void OnLand(BubbleGrid grid, int row, int col)
+    public override void OnLand(BubbleGrid grid, int row, int col, Action onComplete)
     {
         var toRemove = new List<(int, int)> { (row, col) };
 
@@ -23,7 +20,7 @@ public class BlackholeSkill : MonoBehaviour, IBubbleSkill
         foreach (var (r, c) in toRemove)
             grid.RemoveBubble(r, c);
 
-        var floating = BubbleMatchProcessor.FindFloating(grid);
-        foreach (var (r, c) in floating) grid.RemoveBubble(r, c);
+        RemoveFloating(grid);
+        onComplete?.Invoke();
     }
 }

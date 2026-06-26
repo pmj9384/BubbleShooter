@@ -3,14 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class WildcardSkill : MonoBehaviour, IBubbleSkill
+public class WildcardSkill : BubbleSkill
 {
-    public BubbleType TargetType => BubbleType.Wildcard;
-    public bool UsesCustomFire => false;
+    public override BubbleType TargetType => BubbleType.Wildcard;
 
-    public void CustomFire(Vector2 screenPos, BubbleGrid grid, Action onComplete) { }
-
-    public void OnLand(BubbleGrid grid, int row, int col)
+    public override void OnLand(BubbleGrid grid, int row, int col, Action onComplete)
     {
         var colorCounts = new Dictionary<BubbleColor, int>();
 
@@ -34,7 +31,7 @@ public class WildcardSkill : MonoBehaviour, IBubbleSkill
         var matches = BubbleMatchProcessor.FindMatches(grid, row, col);
         foreach (var (r, c) in matches) grid.RemoveBubble(r, c);
 
-        var floating = BubbleMatchProcessor.FindFloating(grid);
-        foreach (var (r, c) in floating) grid.RemoveBubble(r, c);
+        RemoveFloating(grid);
+        onComplete?.Invoke();
     }
 }

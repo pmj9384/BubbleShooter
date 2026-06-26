@@ -29,25 +29,15 @@ public class BubbleSkillController : MonoBehaviour
         }
     }
 
-    public void OnLand(BubbleType type, BubbleGrid grid, int row, int col)
+    public void OnLand(BubbleType type, BubbleGrid grid, int row, int col, Action onComplete)
     {
         foreach (var skill in skills)
         {
             if (skill.TargetType == type)
             {
-                skill.OnLand(grid, row, col);
+                skill.OnLand(grid, row, col, onComplete);
                 return;
             }
         }
-        NormalOnLand(grid, row, col);
-    }
-
-    private void NormalOnLand(BubbleGrid grid, int row, int col)
-    {
-        var matches = BubbleMatchProcessor.FindMatches(grid, row, col);
-        foreach (var (r, c) in matches) grid.RemoveBubble(r, c);
-
-        var floating = BubbleMatchProcessor.FindFloating(grid);
-        foreach (var (r, c) in floating) grid.RemoveBubble(r, c);
     }
 }
