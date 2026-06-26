@@ -18,7 +18,7 @@ public class MeteorSkill : BubbleSkill
 
         var visual = new GameObject("MeteorVisual");
         var sr = visual.AddComponent<SpriteRenderer>();
-        sr.sprite = Bubble.GetMeteorSprite();
+        sr.sprite = Bubble.GetMeteorFallSprite();
         sr.sortingOrder = 10;
         visual.transform.position = startPos;
 

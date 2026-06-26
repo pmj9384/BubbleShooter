@@ -14,6 +14,7 @@ public class Bubble : MonoBehaviour
     private static Sprite blackholeSprite;
     private static Sprite wildcardSprite;
     private static Sprite meteorSprite;
+    private static Sprite meteorFallSprite;
 
     private static void LoadSprites()
     {
@@ -24,15 +25,17 @@ public class Bubble : MonoBehaviour
         normalSprites[(int)BubbleColor.Green]  = Resources.Load<Sprite>("Sprites/Bubbles/bubble_green");
         normalSprites[(int)BubbleColor.Yellow] = Resources.Load<Sprite>("Sprites/Bubbles/bubble_yellow");
         normalSprites[(int)BubbleColor.Purple] = Resources.Load<Sprite>("Sprites/Bubbles/bubble_purple");
-        blackholeSprite = Resources.Load<Sprite>("Sprites/Bubbles/bubble_blackhole");
-        wildcardSprite  = Resources.Load<Sprite>("Sprites/Bubbles/bubble_wildcard");
-        meteorSprite    = Resources.Load<Sprite>("Sprites/Bubbles/bubble_meteor");
+        blackholeSprite  = Resources.Load<Sprite>("Sprites/Bubbles/bubble_blackhole");
+        wildcardSprite   = Resources.Load<Sprite>("Sprites/Bubbles/bubble_wildcard");
+        meteorSprite     = Resources.Load<Sprite>("Sprites/Bubbles/bubble_meteor");
+        meteorFallSprite = Resources.Load<Sprite>("Sprites/Bubbles/meteor_fall");
     }
 
     public static Sprite GetNormalSprite(BubbleColor color) { LoadSprites(); return normalSprites[(int)color]; }
-    public static Sprite GetBlackholeSprite() { LoadSprites(); return blackholeSprite; }
-    public static Sprite GetWildcardSprite()  { LoadSprites(); return wildcardSprite; }
-    public static Sprite GetMeteorSprite()    { LoadSprites(); return meteorSprite; }
+    public static Sprite GetBlackholeSprite()  { LoadSprites(); return blackholeSprite; }
+    public static Sprite GetWildcardSprite()   { LoadSprites(); return wildcardSprite; }
+    public static Sprite GetMeteorSprite()     { LoadSprites(); return meteorSprite; }
+    public static Sprite GetMeteorFallSprite() { LoadSprites(); return meteorFallSprite; }
 
     private void Awake()
     {
