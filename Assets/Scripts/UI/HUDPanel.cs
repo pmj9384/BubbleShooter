@@ -7,6 +7,7 @@ public class HUDPanel : UIElement
     [Header("TopBar")]
     [SerializeField] private GameObject topBar;
     [SerializeField] private Button pauseButton;
+    [SerializeField] private TextMeshProUGUI scoreText;
 
     [Header("BottomBar")]
     [SerializeField] private GameObject bottomBar;
@@ -23,6 +24,10 @@ public class HUDPanel : UIElement
             shooter.OnFired += UpdateDisplay;
 
         pauseButton.onClick.AddListener(() => gameUIManager.PauseGame());
+
+        var countManager = GameManager.Instance.CountManager;
+        countManager.OnScoreChanged -= UpdateScore;
+        countManager.OnScoreChanged += UpdateScore;
     }
 
     public override void Show()
@@ -30,6 +35,7 @@ public class HUDPanel : UIElement
         topBar.SetActive(true);
         bottomBar.SetActive(true);
         gameObject.SetActive(true);
+        UpdateScore(GameManager.Instance.CountManager.Score);
         UpdateDisplay();
     }
 
@@ -38,6 +44,12 @@ public class HUDPanel : UIElement
         topBar.SetActive(false);
         bottomBar.SetActive(false);
         gameObject.SetActive(false);
+    }
+
+    private void UpdateScore(int score)
+    {
+        if (scoreText != null)
+            scoreText.text = $"{score:N0}";
     }
 
     private void UpdateDisplay()
@@ -69,7 +81,7 @@ public class HUDPanel : UIElement
             var type = i < upcomingTypes.Count ? upcomingTypes[i] : BubbleType.Normal;
             image.sprite = type switch
             {
-                BubbleType.Bomb     => Bubble.GetBombSprite(),
+                BubbleType.Blackhole => Bubble.GetBlackholeSprite(),
                 BubbleType.Wildcard => Bubble.GetWildcardSprite(),
                 _                   => Bubble.GetNormalSprite(upcoming[i]),
             };

@@ -30,4 +30,27 @@ public class FontApplier
 
         Debug.Log($"Kostar SDF 2 폰트를 {count}개 TMP 컴포넌트에 적용했습니다.");
     }
+
+    [MenuItem("Tools/Setup ScoreText")]
+    public static void SetupScoreText()
+    {
+        var hudGo = GameObject.Find("HUD");
+        if (hudGo == null) { Debug.LogError("HUD not found"); return; }
+
+        var hudPanel = hudGo.GetComponent<HUDPanel>();
+        if (hudPanel == null) { Debug.LogError("HUDPanel not found"); return; }
+
+        var scoreGo = GameObject.Find("ScoreText");
+        if (scoreGo == null) { Debug.LogError("ScoreText not found"); return; }
+
+        var tmp = scoreGo.GetComponent<TextMeshProUGUI>();
+        if (tmp == null) { Debug.LogError("TextMeshProUGUI not found on ScoreText"); return; }
+
+        var so = new SerializedObject(hudPanel);
+        so.FindProperty("scoreText").objectReferenceValue = tmp;
+        so.ApplyModifiedProperties();
+        EditorUtility.SetDirty(hudPanel);
+
+        Debug.Log("HUDPanel.scoreText → ScoreText 연결 완료");
+    }
 }
