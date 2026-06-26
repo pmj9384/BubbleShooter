@@ -149,7 +149,7 @@ public class BubbleShooterController : MonoBehaviour
         currentBubbleRenderer.color = UnityEngine.Color.white;
         currentBubbleRenderer.sprite = bubbleQueue.CurrentType switch
         {
-            BubbleType.Bomb     => Bubble.GetBombSprite(),
+            BubbleType.Blackhole => Bubble.GetBlackholeSprite(),
             BubbleType.Wildcard => Bubble.GetWildcardSprite(),
             _                   => Bubble.GetNormalSprite(bubbleQueue.CurrentColor),
         };

@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BombBubbleEffect : MonoBehaviour, IBubbleEffect
+public class BlackholeBubbleEffect : MonoBehaviour, IBubbleEffect
 {
-    public BubbleType TargetType => BubbleType.Bomb;
+    public BubbleType TargetType => BubbleType.Blackhole;
 
     public void Apply(BubbleGrid grid, int row, int col)
     {

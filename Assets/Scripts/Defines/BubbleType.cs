@@ -1,1 +1,1 @@
-public enum BubbleType { Normal, Bomb, Wildcard }
+public enum BubbleType { Normal, Blackhole, Wildcard }

@@ -11,7 +11,7 @@ public class Bubble : MonoBehaviour
     private SpriteRenderer spriteRenderer;
 
     private static Sprite[] normalSprites;
-    private static Sprite bombSprite;
+    private static Sprite blackholeSprite;
     private static Sprite wildcardSprite;
 
     private static void LoadSprites()
@@ -23,12 +23,12 @@ public class Bubble : MonoBehaviour
         normalSprites[(int)BubbleColor.Green]  = Resources.Load<Sprite>("Sprites/Bubbles/bubble_green");
         normalSprites[(int)BubbleColor.Yellow] = Resources.Load<Sprite>("Sprites/Bubbles/bubble_yellow");
         normalSprites[(int)BubbleColor.Purple] = Resources.Load<Sprite>("Sprites/Bubbles/bubble_purple");
-        bombSprite     = Resources.Load<Sprite>("Sprites/Bubbles/bubble_bomb");
+        blackholeSprite     = Resources.Load<Sprite>("Sprites/Bubbles/bubble_blackhole");
         wildcardSprite = Resources.Load<Sprite>("Sprites/Bubbles/bubble_wildcard");
     }
 
     public static Sprite GetNormalSprite(BubbleColor color) { LoadSprites(); return normalSprites[(int)color]; }
-    public static Sprite GetBombSprite()     { LoadSprites(); return bombSprite; }
+    public static Sprite GetBlackholeSprite()     { LoadSprites(); return blackholeSprite; }
     public static Sprite GetWildcardSprite() { LoadSprites(); return wildcardSprite; }
 
     private void Awake()
@@ -51,7 +51,7 @@ public class Bubble : MonoBehaviour
         spriteRenderer.color = UnityEngine.Color.white;
         spriteRenderer.sprite = type switch
         {
-            BubbleType.Bomb     => bombSprite,
+            BubbleType.Blackhole     => blackholeSprite,
             BubbleType.Wildcard => wildcardSprite,
             _                   => normalSprites[(int)color],
         };
