@@ -93,7 +93,9 @@ public class GameManager : MonoSingleton<GameManager>
 
         AddGameStateEnterAction(GameState.GameOver, () =>
         {
-            GameDataManager.Instance.PlayerAccountData.AddCoins(10);
+            int earned = CountManager.Score / 10;
+            if (earned > 0)
+                GameDataManager.Instance.PlayerAccountData.AddCoins(earned);
             SaveLoadSystem.Instance.Save();
         });
     }

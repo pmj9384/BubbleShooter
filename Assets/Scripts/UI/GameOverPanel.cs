@@ -17,8 +17,9 @@ public class GameOverPanel : UIElement
 
     public override void Show()
     {
-        int popped = GameManager.Instance.CountManager.PoppedCount;
-        scoreText.text = $"버블 {popped}개 제거";
+        int score = GameManager.Instance.CountManager.Score;
+        int earned = score / 10;
+        scoreText.text = $"{score:N0}점\n+{earned} 코인 획득";
         gameObject.SetActive(true);
     }
 
