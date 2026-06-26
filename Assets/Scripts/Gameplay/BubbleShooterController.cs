@@ -150,8 +150,9 @@ public class BubbleShooterController : MonoBehaviour
         currentBubbleRenderer.sprite = bubbleQueue.CurrentType switch
         {
             BubbleType.Blackhole => Bubble.GetBlackholeSprite(),
-            BubbleType.Wildcard => Bubble.GetWildcardSprite(),
-            _                   => Bubble.GetNormalSprite(bubbleQueue.CurrentColor),
+            BubbleType.Wildcard  => Bubble.GetWildcardSprite(),
+            BubbleType.Meteor    => Bubble.GetMeteorSprite(),
+            _                    => Bubble.GetNormalSprite(bubbleQueue.CurrentColor),
         };
     }
 

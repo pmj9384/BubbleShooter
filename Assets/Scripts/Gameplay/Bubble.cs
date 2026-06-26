@@ -13,6 +13,7 @@ public class Bubble : MonoBehaviour
     private static Sprite[] normalSprites;
     private static Sprite blackholeSprite;
     private static Sprite wildcardSprite;
+    private static Sprite meteorSprite;
 
     private static void LoadSprites()
     {
@@ -23,13 +24,15 @@ public class Bubble : MonoBehaviour
         normalSprites[(int)BubbleColor.Green]  = Resources.Load<Sprite>("Sprites/Bubbles/bubble_green");
         normalSprites[(int)BubbleColor.Yellow] = Resources.Load<Sprite>("Sprites/Bubbles/bubble_yellow");
         normalSprites[(int)BubbleColor.Purple] = Resources.Load<Sprite>("Sprites/Bubbles/bubble_purple");
-        blackholeSprite     = Resources.Load<Sprite>("Sprites/Bubbles/bubble_blackhole");
-        wildcardSprite = Resources.Load<Sprite>("Sprites/Bubbles/bubble_wildcard");
+        blackholeSprite = Resources.Load<Sprite>("Sprites/Bubbles/bubble_blackhole");
+        wildcardSprite  = Resources.Load<Sprite>("Sprites/Bubbles/bubble_wildcard");
+        meteorSprite    = Resources.Load<Sprite>("Sprites/Bubbles/bubble_meteor");
     }
 
     public static Sprite GetNormalSprite(BubbleColor color) { LoadSprites(); return normalSprites[(int)color]; }
-    public static Sprite GetBlackholeSprite()     { LoadSprites(); return blackholeSprite; }
-    public static Sprite GetWildcardSprite() { LoadSprites(); return wildcardSprite; }
+    public static Sprite GetBlackholeSprite() { LoadSprites(); return blackholeSprite; }
+    public static Sprite GetWildcardSprite()  { LoadSprites(); return wildcardSprite; }
+    public static Sprite GetMeteorSprite()    { LoadSprites(); return meteorSprite; }
 
     private void Awake()
     {
@@ -51,9 +54,10 @@ public class Bubble : MonoBehaviour
         spriteRenderer.color = UnityEngine.Color.white;
         spriteRenderer.sprite = type switch
         {
-            BubbleType.Blackhole     => blackholeSprite,
-            BubbleType.Wildcard => wildcardSprite,
-            _                   => normalSprites[(int)color],
+            BubbleType.Blackhole => blackholeSprite,
+            BubbleType.Wildcard  => wildcardSprite,
+            BubbleType.Meteor    => meteorSprite,
+            _                    => normalSprites[(int)color],
         };
     }
 }

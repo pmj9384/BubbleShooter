@@ -82,7 +82,8 @@ public class HUDPanel : UIElement
             image.sprite = type switch
             {
                 BubbleType.Blackhole => Bubble.GetBlackholeSprite(),
-                BubbleType.Wildcard => Bubble.GetWildcardSprite(),
+                BubbleType.Wildcard  => Bubble.GetWildcardSprite(),
+                BubbleType.Meteor    => Bubble.GetMeteorSprite(),
                 _                   => Bubble.GetNormalSprite(upcoming[i]),
             };
         }
