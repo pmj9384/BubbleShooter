@@ -12,6 +12,7 @@ public class BubbleProjectile : MonoBehaviour
     private bool landed;
     private Rigidbody2D rb;
     private Action onLanded;
+    private Vector2 prevPosition;
 
     public BubbleColor Color { get; private set; }
     public BubbleType Type { get; private set; }
@@ -40,6 +41,8 @@ public class BubbleProjectile : MonoBehaviour
     {
         if (landed) return;
 
+        prevPosition = rb.position;
+
         float x = rb.position.x;
         if (x <= leftWall)
         {
@@ -56,9 +59,10 @@ public class BubbleProjectile : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (landed) return;
-        if (other.GetComponent<Bubble>() == null) return;
+        var hitBubble = other.GetComponent<Bubble>();
+        if (hitBubble == null) return;
 
-        Land();
+        Land(hitBubble.Row, hitBubble.Col);
     }
 
     // 최상단 벽에 닿았을 때 (천장)
@@ -68,13 +72,16 @@ public class BubbleProjectile : MonoBehaviour
         Land();
     }
 
-    private void Land()
+    private void Land(int hitRow = -1, int hitCol = -1)
     {
         landed = true;
         rb.linearVelocity = Vector2.zero;
         rb.bodyType = RigidbodyType2D.Kinematic;
 
-        var (row, col) = grid.FindNearestEmpty(transform.position);
+        var (row, col) = hitRow >= 0
+            ? grid.FindNearestEmptyAdjacentTo(hitRow, hitCol, prevPosition)
+            : grid.FindNearestEmpty(transform.position);
+
         var bubble = GetComponent<Bubble>();
         if (bubble != null)
         {
