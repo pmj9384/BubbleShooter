@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
@@ -5,6 +6,7 @@ using UnityEngine;
 public class Bubble : MonoBehaviour
 {
     public BubbleColor Color { get; private set; }
+    public BubbleType Type { get; private set; }
     public int Row { get; set; }
     public int Col { get; set; }
 
@@ -15,27 +17,32 @@ public class Bubble : MonoBehaviour
     private static Sprite wildcardSprite;
     private static Sprite meteorSprite;
     private static Sprite meteorFallSprite;
+    private static Sprite asteroidSprite;
+
 
     private static void LoadSprites()
     {
         if (normalSprites != null) return;
         normalSprites = new Sprite[(int)BubbleColor.Count];
-        normalSprites[(int)BubbleColor.Red]    = Resources.Load<Sprite>("Sprites/Bubbles/bubble_red");
-        normalSprites[(int)BubbleColor.Blue]   = Resources.Load<Sprite>("Sprites/Bubbles/bubble_blue");
-        normalSprites[(int)BubbleColor.Green]  = Resources.Load<Sprite>("Sprites/Bubbles/bubble_green");
+        normalSprites[(int)BubbleColor.Red] = Resources.Load<Sprite>("Sprites/Bubbles/bubble_red");
+        normalSprites[(int)BubbleColor.Blue] = Resources.Load<Sprite>("Sprites/Bubbles/bubble_blue");
+        normalSprites[(int)BubbleColor.Green] = Resources.Load<Sprite>("Sprites/Bubbles/bubble_green");
         normalSprites[(int)BubbleColor.Yellow] = Resources.Load<Sprite>("Sprites/Bubbles/bubble_yellow");
         normalSprites[(int)BubbleColor.Purple] = Resources.Load<Sprite>("Sprites/Bubbles/bubble_purple");
-        blackholeSprite  = Resources.Load<Sprite>("Sprites/Bubbles/bubble_blackhole");
-        wildcardSprite   = Resources.Load<Sprite>("Sprites/Bubbles/bubble_wildcard");
-        meteorSprite     = Resources.Load<Sprite>("Sprites/Bubbles/bubble_meteor");
+        blackholeSprite = Resources.Load<Sprite>("Sprites/Bubbles/bubble_blackhole");
+        wildcardSprite = Resources.Load<Sprite>("Sprites/Bubbles/bubble_wildcard");
+        meteorSprite = Resources.Load<Sprite>("Sprites/Bubbles/bubble_meteor");
         meteorFallSprite = Resources.Load<Sprite>("Sprites/Bubbles/meteor_fall");
+        asteroidSprite = Resources.Load<Sprite>("Sprites/Bubbles/bubble_asteroid");
     }
 
     public static Sprite GetNormalSprite(BubbleColor color) { LoadSprites(); return normalSprites[(int)color]; }
-    public static Sprite GetBlackholeSprite()  { LoadSprites(); return blackholeSprite; }
-    public static Sprite GetWildcardSprite()   { LoadSprites(); return wildcardSprite; }
-    public static Sprite GetMeteorSprite()     { LoadSprites(); return meteorSprite; }
+    public static Sprite GetBlackholeSprite() { LoadSprites(); return blackholeSprite; }
+    public static Sprite GetWildcardSprite() { LoadSprites(); return wildcardSprite; }
+    public static Sprite GetMeteorSprite() { LoadSprites(); return meteorSprite; }
     public static Sprite GetMeteorFallSprite() { LoadSprites(); return meteorFallSprite; }
+    public static Sprite GetAsteroidSprite() { LoadSprites(); return asteroidSprite; }
+
 
     private void Awake()
     {
@@ -52,15 +59,17 @@ public class Bubble : MonoBehaviour
     public void SetVisual(BubbleColor color, BubbleType type)
     {
         Color = color;
+        Type = type;
         spriteRenderer = spriteRenderer ?? GetComponent<SpriteRenderer>();
         LoadSprites();
         spriteRenderer.color = UnityEngine.Color.white;
         spriteRenderer.sprite = type switch
         {
             BubbleType.Blackhole => blackholeSprite,
-            BubbleType.Wildcard  => wildcardSprite,
-            BubbleType.Meteor    => meteorSprite,
-            _                    => normalSprites[(int)color],
+            BubbleType.Wildcard => wildcardSprite,
+            BubbleType.Meteor => meteorSprite,
+            BubbleType.Asteroid => asteroidSprite,
+            _ => normalSprites[(int)color],
         };
     }
 }

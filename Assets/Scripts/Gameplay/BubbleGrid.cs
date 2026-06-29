@@ -146,7 +146,7 @@ public class BubbleGrid : InGameManager
         for (int c = 0; c < COLS_EVEN; c++)
             Grid[0, c] = null;
 
-        SpawnRow(0, colors);
+        SpawnRow(0, colors, allowAsteroid: true);
     }
 
     public void SpawnInitialRows(int count)
@@ -155,7 +155,7 @@ public class BubbleGrid : InGameManager
             SpawnRow(r);
     }
 
-    private void SpawnRow(int row, BubbleColor[] colors = null)
+    private void SpawnRow(int row, BubbleColor[] colors = null,bool allowAsteroid = false)
     {
         int maxCol = GetMaxCol(row);
         for (int c = 0; c <= maxCol; c++)
@@ -168,7 +168,10 @@ public class BubbleGrid : InGameManager
             go.transform.position = GetWorldPosition(row, c);
             go.transform.SetParent(transform);
             var bubble = go.GetComponent<Bubble>();
-            bubble.SetColor(color);
+            if (allowAsteroid && Random.Range(0f, 1f) < 0.15f)
+                bubble.SetVisual(color, BubbleType.Asteroid);
+            else
+                bubble.SetColor(color);
             bubble.Row = row;
             bubble.Col = c;
             Grid[row, c] = bubble;
