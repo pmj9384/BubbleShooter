@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MeteorSkill : BubbleSkill
 {
+    [SerializeField] private GameObject meteorVisualPrefab;
+
     public override BubbleType TargetType => BubbleType.Meteor;
 
     public override void OnLand(BubbleGrid grid, int row, int col, Action onComplete)
@@ -16,11 +18,7 @@ public class MeteorSkill : BubbleSkill
         Vector2 startPos = (Vector2)grid.GetWorldPosition(0, col) + Vector2.up * 3f;
         Vector2 endPos = (Vector2)grid.GetWorldPosition(landRow, col);
 
-        var visual = new GameObject("MeteorVisual");
-        var sr = visual.AddComponent<SpriteRenderer>();
-        sr.sprite = Bubble.GetMeteorFallSprite();
-        sr.sortingOrder = 10;
-        visual.transform.position = startPos;
+        var visual = Instantiate(meteorVisualPrefab, startPos, Quaternion.identity);
 
         float distance = Vector2.Distance(startPos, endPos);
         float duration = distance / 15f;
