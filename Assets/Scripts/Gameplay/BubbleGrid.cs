@@ -89,6 +89,24 @@ public class BubbleGrid : InGameManager
         return (row, col);
     }
 
+    public (int row, int col) FindNearestEmptyAdjacentTo(int hitRow, int hitCol, Vector2 approachPos)
+    {
+        (int row, int col) best = (-1, -1);
+        float bestDist = float.MaxValue;
+
+        foreach (var (dr, dc) in GetNeighborOffsets(hitRow))
+        {
+            int nr = hitRow + dr, nc = hitCol + dc;
+            if (nr >= 0 && nr < MAX_ROWS && nc >= 0 && nc <= GetMaxCol(nr) && !IsOccupied(nr, nc))
+            {
+                float dist = Vector2.Distance(GetWorldPosition(nr, nc), approachPos);
+                if (dist < bestDist) { bestDist = dist; best = (nr, nc); }
+            }
+        }
+
+        return best.row >= 0 ? best : FindNearestEmpty(approachPos);
+    }
+
     public void PlaceBubble(Bubble bubble, int row, int col)
     {
         bubble.Row = row;
