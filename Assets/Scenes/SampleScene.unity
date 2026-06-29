@@ -4000,7 +4000,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6987f073b48894e6f91b05cf4f5f9c26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meteorVisualPrefab: {fileID: 1000000001, guid: 356992ea382b94d84a3854a78c4d8d0f, type: 3}
+  meteorVisualPrefab: {fileID: 0}
 --- !u!114 &2125349325
 MonoBehaviour:
   m_ObjectHideFlags: 0
