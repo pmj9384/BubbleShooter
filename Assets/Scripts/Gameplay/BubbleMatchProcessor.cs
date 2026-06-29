@@ -48,7 +48,7 @@ public static class BubbleMatchProcessor
         var connected = new HashSet<(int, int)>();
         var queue = new Queue<(int, int)>();
 
-        // 0행의 모든 버블을 시작점으로
+        // 0행 버블 + 모든 소행성을 시작점으로 (소행성은 그리드 고정 장애물)
         for (int c = 0; c < BubbleGrid.COLS_EVEN; c++)
         {
             if (grid[0, c] != null)
@@ -57,6 +57,14 @@ public static class BubbleMatchProcessor
                 connected.Add((0, c));
             }
         }
+
+        for (int r = 1; r < BubbleGrid.MAX_ROWS; r++)
+            for (int c = 0; c < BubbleGrid.COLS_EVEN; c++)
+                if (grid[r, c] != null && grid[r, c].Type == BubbleType.Asteroid && !connected.Contains((r, c)))
+                {
+                    connected.Add((r, c));
+                    queue.Enqueue((r, c));
+                }
 
         while (queue.Count > 0)
         {

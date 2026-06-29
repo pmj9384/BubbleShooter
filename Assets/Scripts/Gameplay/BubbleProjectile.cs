@@ -46,11 +46,23 @@ public class BubbleProjectile : MonoBehaviour
         float x = rb.position.x;
         if (x <= leftWall)
         {
+            if (PortalManager.Current != null && PortalManager.Current.AbsorbIfPortalZone(rb.position.y, true))
+            {
+                onLanded?.Invoke();
+                Destroy(gameObject);
+                return;
+            }
             rb.position = new Vector2(leftWall, rb.position.y);
             rb.linearVelocity = new Vector2(Mathf.Abs(rb.linearVelocity.x), rb.linearVelocity.y);
         }
         else if (x >= rightWall)
         {
+            if (PortalManager.Current != null && PortalManager.Current.AbsorbIfPortalZone(rb.position.y, false))
+            {
+                onLanded?.Invoke();
+                Destroy(gameObject);
+                return;
+            }
             rb.position = new Vector2(rightWall, rb.position.y);
             rb.linearVelocity = new Vector2(-Mathf.Abs(rb.linearVelocity.x), rb.linearVelocity.y);
         }
@@ -65,7 +77,6 @@ public class BubbleProjectile : MonoBehaviour
         Land(hitBubble.Row, hitBubble.Col);
     }
 
-    // 최상단 벽에 닿았을 때 (천장)
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (landed) return;

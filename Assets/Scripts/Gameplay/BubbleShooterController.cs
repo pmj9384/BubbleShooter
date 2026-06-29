@@ -12,7 +12,9 @@ public class BubbleShooterController : MonoBehaviour
     [SerializeField] private GameObject bubblePrefab;
     [SerializeField] private SpriteRenderer currentBubbleRenderer;
 
-    [SerializeField] private int shotsPerRow = 5;
+    [SerializeField] private int initialShotsPerRow = 10;
+    [SerializeField] private int minShotsPerRow = 5;
+    [SerializeField] private int difficultyInterval = 10;
     private float gameOverY;
 
     private BubbleGrid bubbleGrid;
@@ -23,12 +25,15 @@ public class BubbleShooterController : MonoBehaviour
     private Vector2 lastAimDir;
     private bool canShoot = true;
     private int shotCount;
+    private int shotsPerRow;
+    private int rowCountdown;
 
     public event Action OnFired;
+    public event Action OnBubbleLanded;
     public event Action<Vector2> OnAimDirectionChanged;
     public int ShotCount => shotCount;
     public int ShotsPerRow => shotsPerRow;
-    public int ShotsUntilNextRow => shotsPerRow - (shotCount % shotsPerRow);
+    public int ShotsUntilNextRow => rowCountdown;
     public BubbleColor CurrentColor => bubbleQueue.CurrentColor;
     public BubbleType CurrentType => bubbleQueue.CurrentType;
     public BubbleColor NextColor => bubbleQueue.NextColor;
@@ -46,6 +51,8 @@ public class BubbleShooterController : MonoBehaviour
 
     private void Start()
     {
+        shotsPerRow = initialShotsPerRow;
+        rowCountdown = initialShotsPerRow;
         bubbleGrid = GameManager.Instance.BubbleGrid;
         RefreshShooterDisplay();
         StartCoroutine(SetupPositionAfterLayout());
@@ -113,7 +120,11 @@ public class BubbleShooterController : MonoBehaviour
         canShoot = false;
         var type = bubbleQueue.CurrentType;
         shotCount++;
-        bool shouldAddRow = shotCount % shotsPerRow == 0;
+        rowCountdown--;
+        if (shotCount % difficultyInterval == 0 && shotsPerRow > minShotsPerRow)
+            shotsPerRow--;
+        bool shouldAddRow = rowCountdown <= 0;
+        if (shouldAddRow) rowCountdown = shotsPerRow;
 
         bubbleQueue.Consume();
         RefreshShooterDisplay();
@@ -121,6 +132,7 @@ public class BubbleShooterController : MonoBehaviour
 
         skillController.CustomFire(type, screenPos, bubbleGrid, () =>
         {
+            OnBubbleLanded?.Invoke();
             if (shouldAddRow) OnProjectileLanded();
             canShoot = true;
         });
@@ -148,10 +160,15 @@ public class BubbleShooterController : MonoBehaviour
         col.isTrigger = true;
 
         shotCount++;
-        bool shouldAddRow = shotCount % shotsPerRow == 0;
+        rowCountdown--;
+        if (shotCount % difficultyInterval == 0 && shotsPerRow > minShotsPerRow)
+            shotsPerRow--;
+        bool shouldAddRow = rowCountdown <= 0;
+        if (shouldAddRow) rowCountdown = shotsPerRow;
 
         Action onLanded = () =>
         {
+            OnBubbleLanded?.Invoke();
             if (shouldAddRow) OnProjectileLanded();
             canShoot = true;
         };

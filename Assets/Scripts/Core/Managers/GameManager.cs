@@ -37,6 +37,7 @@ public class GameManager : MonoSingleton<GameManager>
     public GameUIManager UIManager { get; private set; }
     public BubbleGrid BubbleGrid { get; private set; }
     public InGameCountManager CountManager { get; private set; }
+    public PortalManager PortalManager { get; private set; }
 
     #endregion
 
@@ -112,6 +113,7 @@ public class GameManager : MonoSingleton<GameManager>
         UIManager = RegisterManager<GameUIManager>(managerObjects);
         BubbleGrid = RegisterManager<BubbleGrid>(managerObjects);
         CountManager = RegisterManager<InGameCountManager>(managerObjects);
+        PortalManager = RegisterManager<PortalManager>(managerObjects);
 
         foreach (var manager in managers)
         {
