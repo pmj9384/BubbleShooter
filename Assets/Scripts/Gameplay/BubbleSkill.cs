@@ -20,6 +20,8 @@ public abstract class BubbleSkill : MonoBehaviour, IBubbleSkill
     protected void RemoveFloating(BubbleGrid grid)
     {
         var floating = BubbleMatchProcessor.FindFloating(grid);
-        foreach (var (r, c) in floating) grid.RemoveBubble(r, c);
+        foreach (var (r, c) in floating)
+            if (grid.Grid[r, c]?.Type != BubbleType.Asteroid)
+                grid.RemoveBubble(r, c);
     }
 }

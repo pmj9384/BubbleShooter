@@ -30,6 +30,7 @@ public static class BubbleMatchProcessor
                 if (nr < 0 || nr >= BubbleGrid.MAX_ROWS || nc < 0 || nc >= BubbleGrid.COLS_EVEN) continue;
                 if (visited.Contains((nr, nc))) continue;
                 if (grid[nr, nc] == null) continue;
+                if (grid[nr, nc].Type == BubbleType.Asteroid) continue;
                 if (grid[nr, nc].Color != target.Color) continue;
 
                 visited.Add((nr, nc));

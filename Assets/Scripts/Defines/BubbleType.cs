@@ -1,1 +1,1 @@
-public enum BubbleType { Normal, Blackhole, Wildcard, Meteor }
+public enum BubbleType { Normal, Blackhole, Wildcard, Meteor, Asteroid }
